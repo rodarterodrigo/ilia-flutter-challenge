@@ -2,15 +2,15 @@ import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie.
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_results.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_model.dart';
 
-class MovieListResultsModel extends MovieListResults{
-  MovieListResultsModel({
+class MovieListResultsModel extends MovieListResults {
+  const MovieListResultsModel({
     required List<Movie> movies,
-  }):super(
-    movies: movies,
-  );
+  }) : super(
+          movies: movies,
+        );
 
-  factory MovieListResultsModel.fromJson(List<Map<String, dynamic>> json) =>
+  factory MovieListResultsModel.fromJson(List<dynamic> json) =>
       MovieListResultsModel(
-          movies: json.map((e) => MovieModel.fronJson(e)).toList(),
+        movies: json.map((e) => MovieModel.fronJson(e)).toList(),
       );
 }

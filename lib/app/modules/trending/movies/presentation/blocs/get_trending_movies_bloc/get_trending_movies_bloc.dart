@@ -22,14 +22,16 @@ import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get
 import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_success_state.dart';
 import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/time_window_empty_failure_state.dart';
 
-class GetTrendingMoviesBloc extends Bloc<TrendingMoviesListEvents, GeneralStates> implements Disposable{
+class GetTrendingMoviesBloc
+    extends Bloc<TrendingMoviesListEvents, GeneralStates>
+    implements Disposable {
   final GetTrendingMoviesByTimeWindowAbstraction usecase;
 
   bool lastPage = false;
   int page = 0;
   List<Movie> movies = [];
 
-  GetTrendingMoviesBloc(this.usecase) : super(const LoadingState()){
+  GetTrendingMoviesBloc(this.usecase) : super(const LoadingState()) {
     on<GetTrendingMoviesListEvent>(_mapGetTrendingMoviesListToState);
     on<FetchTrendingMoviesListEvent>(_mapFetchTrendingMoviesListToState);
   }
@@ -37,56 +39,56 @@ class GetTrendingMoviesBloc extends Bloc<TrendingMoviesListEvents, GeneralStates
   @override
   void dispose() => close();
 
-  void _mapGetTrendingMoviesListToState(GetTrendingMoviesListEvent event, Emitter<GeneralStates> emitter) async{
+  void _mapGetTrendingMoviesListToState(
+      GetTrendingMoviesListEvent event, Emitter<GeneralStates> emitter) async {
     emitter(const LoadingState());
     final result = await usecase(event.timeWindow, event.page);
-    emitter(
-        result.fold((l) {
-          switch(l.runtimeType){
-            case UnauthorizedFailure:
-              return UnauthorizedFailureState(l as UnauthorizedFailure);
-            case NotFoundFailure:
-              return NotFoundFailureState(l as NotFoundFailure);
-            case TimeWindowEmptyFailure:
-              return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
-            case GenericFailure:
-              return GenericFailureState(l as GenericFailure);
-            default:
-              return GetTrendingMoviesListFailureState(l as TrendingMoviesListFailure);
-          }
-        }, (r) {
-          movies = r.results.movies;
-          return GetTrendingMoviesListSuccessState(r);
-        })
-    );
+    emitter(result.fold((l) {
+      switch (l.runtimeType) {
+        case UnauthorizedFailure:
+          return UnauthorizedFailureState(l as UnauthorizedFailure);
+        case NotFoundFailure:
+          return NotFoundFailureState(l as NotFoundFailure);
+        case TimeWindowEmptyFailure:
+          return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
+        case GeneralFailure:
+          return GenericFailureState(l as GeneralFailure);
+        default:
+          return GetTrendingMoviesListFailureState(
+              l as TrendingMoviesListFailure);
+      }
+    }, (r) {
+      movies = r.results.movies;
+      return GetTrendingMoviesListSuccessState(r);
+    }));
   }
 
-  void _mapFetchTrendingMoviesListToState(FetchTrendingMoviesListEvent event, Emitter<GeneralStates> emitter) async{
+  void _mapFetchTrendingMoviesListToState(FetchTrendingMoviesListEvent event,
+      Emitter<GeneralStates> emitter) async {
     emitter(const FetchTrendingMoviesListLoadingState());
     final result = await usecase(event.timeWindow, event.page);
-    emitter(
-        result.fold((l) {
-          switch(l.runtimeType){
-            case UnauthorizedFailure:
-              return UnauthorizedFailureState(l as UnauthorizedFailure);
-            case NotFoundFailure:
-              return NotFoundFailureState(l as NotFoundFailure);
-            case TimeWindowEmptyFailure:
-              return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
-            case GenericFailure:
-              return GenericFailureState(l as GenericFailure);
-            default:
-              return FetchTrendingMoviesListFailureState(l as TrendingMoviesListFailure);
-          }
-        }, (r) {
-          if(r.results.movies.length < 10) {
-            lastPage = true;
-          } else {
-            lastPage = false;
-          }
-          r.results.movies.map((e) => movies.add(e)).toList();
-          return FetchTrendingMoviesListSuccessState(r);
-        })
-    );
+    emitter(result.fold((l) {
+      switch (l.runtimeType) {
+        case UnauthorizedFailure:
+          return UnauthorizedFailureState(l as UnauthorizedFailure);
+        case NotFoundFailure:
+          return NotFoundFailureState(l as NotFoundFailure);
+        case TimeWindowEmptyFailure:
+          return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
+        case GeneralFailure:
+          return GenericFailureState(l as GeneralFailure);
+        default:
+          return FetchTrendingMoviesListFailureState(
+              l as TrendingMoviesListFailure);
+      }
+    }, (r) {
+      if (r.results.movies.length < 10) {
+        lastPage = true;
+      } else {
+        lastPage = false;
+      }
+      r.results.movies.map((e) => movies.add(e)).toList();
+      return FetchTrendingMoviesListSuccessState(r);
+    }));
   }
 }

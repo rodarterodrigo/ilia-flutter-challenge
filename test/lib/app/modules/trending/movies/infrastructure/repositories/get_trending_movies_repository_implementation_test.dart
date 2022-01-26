@@ -13,41 +13,47 @@ import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/repositories/get_trending_movies_repository_implementation.dart';
 import 'package:mocktail/mocktail.dart';
 
-class GetTrendingMoviesDatasourceMock extends Mock implements GetTrendingMoviesDatasource{}
-class MovieListPageModelFake extends Fake implements MovieListPageModel{}
+class GetTrendingMoviesDatasourceMock extends Mock
+    implements GetTrendingMoviesDatasource {}
+
+class MovieListPageModelFake extends Fake implements MovieListPageModel {}
 
 final datasource = GetTrendingMoviesDatasourceMock();
 final repository = GetTrendingMoviesRepositoryImplementation(datasource);
 
-void main(){
-
-  test('Must return an OrderItems entity', () async{
-    when(() => datasource(any(), any())).thenAnswer((invocation) async => MovieListPageModelFake());
+void main() {
+  test('Must return an OrderItems entity', () async {
+    when(() => datasource(any(), any()))
+        .thenAnswer((invocation) async => MovieListPageModelFake());
     final result = await repository('timeWindow', 1);
     expect(result.fold(id, id), isA<MovieListPage>());
   });
 
-  test('must return an GetTrendingMoviesListFailure', () async{
-    when(() => datasource(any(), any())).thenThrow(GetTrendingMoviesListDatasourceException('GetTrendingMoviesListDatasourceError'));
+  test('must return an GetTrendingMoviesListFailure', () async {
+    when(() => datasource(any(), any())).thenThrow(
+        GetTrendingMoviesListDatasourceException(
+            'GetTrendingMoviesListDatasourceError'));
     final result = await repository('timeWindow', 1);
     expect(result.fold(id, id), isA<TrendingMoviesListFailure>());
   });
 
-  test('must return an UnauthorizedFailure', () async{
-    when(() => datasource(any(), any())).thenThrow(UnauthorizedDatasourceException('UnauthorizedDatasourceError'));
+  test('must return an UnauthorizedFailure', () async {
+    when(() => datasource(any(), any())).thenThrow(
+        UnauthorizedDatasourceException('UnauthorizedDatasourceError'));
     final result = await repository('timeWindow', 1);
     expect(result.fold(id, id), isA<UnauthorizedFailure>());
   });
 
-  test('must return an NotFoundFailure', () async{
-    when(() => datasource(any(), any())).thenThrow(NotFoundDatasourceException('NotFoundDatasourceError'));
+  test('must return an NotFoundFailure', () async {
+    when(() => datasource(any(), any()))
+        .thenThrow(NotFoundDatasourceException('NotFoundDatasourceError'));
     final result = await repository('timeWindow', 1);
     expect(result.fold(id, id), isA<NotFoundFailure>());
   });
 
-  test('must return an GenericFailure', () async{
+  test('must return an GenericFailure', () async {
     when(() => datasource(any(), any())).thenThrow(Exception('Exception'));
     final result = await repository('timeWindow', 1);
-    expect(result.fold(id, id), isA<GenericFailure>());
+    expect(result.fold(id, id), isA<GeneralFailure>());
   });
 }

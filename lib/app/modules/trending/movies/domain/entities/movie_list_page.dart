@@ -6,11 +6,10 @@ class MovieListPage {
   final int totalPages;
   final int totalResults;
 
-  MovieListPage(
-      {
-        required this.results,
-        required this.page,
-        required this.totalPages,
-        required this.totalResults
-      });
+  const MovieListPage({
+    required this.results,
+    required this.page,
+    required this.totalPages,
+    required this.totalResults,
+  });
 }

@@ -11,27 +11,25 @@ import 'package:imdb_trending/app/modules/trending/movies/domain/repositories/ge
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/datasources/get_trending_movies_datasource.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
 
-class GetTrendingMoviesRepositoryImplementation implements GetTrendingMoviesRepository{
+class GetTrendingMoviesRepositoryImplementation
+    implements GetTrendingMoviesRepository {
   final GetTrendingMoviesDatasource datasource;
 
-  GetTrendingMoviesRepositoryImplementation(this.datasource);
+  const GetTrendingMoviesRepositoryImplementation(this.datasource);
 
   @override
-  Future<Either<Failures, MovieListPage>> call(String timeWindow, int page) async{
-    try{
+  Future<Either<Failures, MovieListPage>> call(
+      String timeWindow, int page) async {
+    try {
       return Right(await datasource(timeWindow, page));
-    }
-    on GetTrendingMoviesListDatasourceException catch(e){
+    } on GetTrendingMoviesListDatasourceException catch (e) {
       return Left(TrendingMoviesListFailure(e.message));
-    }
-    on UnauthorizedDatasourceException catch(e){
+    } on UnauthorizedDatasourceException catch (e) {
       return Left(UnauthorizedFailure(e.message));
-    }
-    on NotFoundDatasourceException catch(e){
+    } on NotFoundDatasourceException catch (e) {
       return Left(NotFoundFailure(e.message));
-    }
-    on Exception catch(e){
-      return Left(GenericFailure(e.toString()));
+    } on Exception catch (e) {
+      return Left(GeneralFailure(e.toString()));
     }
   }
 }

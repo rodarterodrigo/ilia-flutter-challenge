@@ -1,3 +1,3 @@
-class GetTrendingMovieSettings{
-  static const String output = 'trending/movie/week';
+class GetTrendingMovieSettings {
+  static const String output = 'trending/movie/';
 }

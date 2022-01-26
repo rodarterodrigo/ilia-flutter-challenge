@@ -1,5 +1,5 @@
-abstract class GeneralExceptions implements Exception{
+abstract class GeneralExceptions implements Exception {
   final String message;
 
-  GeneralExceptions(this.message);
+  const GeneralExceptions(this.message);
 }

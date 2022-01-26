@@ -1,3 +1,3 @@
-abstract class TrendingMoviesListEvents{
+abstract class TrendingMoviesListEvents {
   const TrendingMoviesListEvents();
 }

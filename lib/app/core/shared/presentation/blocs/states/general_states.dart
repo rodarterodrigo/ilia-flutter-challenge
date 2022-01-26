@@ -1,1 +1,1 @@
-abstract class GeneralStates{}
+abstract class GeneralStates {}

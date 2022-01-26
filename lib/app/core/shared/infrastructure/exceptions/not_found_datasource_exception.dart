@@ -1,8 +1,8 @@
 import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/general_exceptions.dart';
 
-class NotFoundDatasourceException implements GeneralExceptions{
+class NotFoundDatasourceException implements GeneralExceptions {
   @override
   final String message;
 
-  NotFoundDatasourceException(this.message);
+  const NotFoundDatasourceException(this.message);
 }

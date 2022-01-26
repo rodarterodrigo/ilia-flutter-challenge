@@ -4,18 +4,21 @@ import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_
 import 'package:imdb_trending/app/modules/trending/movies/domain/failures/time_window_empty_failure.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/repositories/get_trending_movies_repository.dart';
 
-abstract class GetTrendingMoviesByTimeWindowAbstraction{
+abstract class GetTrendingMoviesByTimeWindowAbstraction {
   Future<Either<Failures, MovieListPage>> call(String timeWindow, int page);
 }
 
-class GetTrendingMoviesByTimeWindow implements GetTrendingMoviesByTimeWindowAbstraction{
+class GetTrendingMoviesByTimeWindow
+    implements GetTrendingMoviesByTimeWindowAbstraction {
   final GetTrendingMoviesRepository repository;
 
-  GetTrendingMoviesByTimeWindow(this.repository);
-  
+  const GetTrendingMoviesByTimeWindow(this.repository);
+
   @override
-  Future<Either<Failures, MovieListPage>> call(String timeWindow, int page) async =>
-      timeWindow.isEmpty? 
-          Left(TimeWindowEmptyFailure('Selecione a janela de tempo para exibir a listagem')):
-            await repository(timeWindow, page);
+  Future<Either<Failures, MovieListPage>> call(
+          String timeWindow, int page) async =>
+      timeWindow.isEmpty
+          ? const Left(TimeWindowEmptyFailure(
+              'Selecione a janela de tempo para exibir a listagem'))
+          : await repository(timeWindow, page);
 }

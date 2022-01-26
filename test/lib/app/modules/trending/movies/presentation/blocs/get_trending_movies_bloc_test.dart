@@ -23,121 +23,168 @@ import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get
 import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/time_window_empty_failure_state.dart';
 import 'package:mocktail/mocktail.dart';
 
-class GetTrendingMoviesByTimeWindowAbstractionMock extends Mock implements GetTrendingMoviesByTimeWindowAbstraction{}
+class GetTrendingMoviesByTimeWindowAbstractionMock extends Mock
+    implements GetTrendingMoviesByTimeWindowAbstraction {}
 
 final usecase = GetTrendingMoviesByTimeWindowAbstractionMock();
 final bloc = GetTrendingMoviesBloc(usecase);
 
-final MovieListPage movieListPage = MovieListPage(results: MovieListResults(movies: []), page: 1, totalPages: 1, totalResults: 1);
+const MovieListPage movieListPage = MovieListPage(
+    results: MovieListResults(movies: []),
+    page: 1,
+    totalPages: 1,
+    totalResults: 1);
 
-void main(){
-  test('Should return all states in order and GetTrendingMoviesListSuccessState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Right(movieListPage));
+void main() {
+  test(
+      'Should return all states in order and GetTrendingMoviesListSuccessState as final state',
+      () async {
+    when(() => usecase(any(), any()))
+        .thenAnswer((invocation) async => const Right(movieListPage));
     bloc.add(GetTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<LoadingState>(),
-      isA<GetTrendingMoviesListSuccessState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<GetTrendingMoviesListSuccessState>()]));
   });
 
-  test('Should return all states in order and GetTrendingMoviesListFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
+  test(
+      'Should return all states in order and GetTrendingMoviesListFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+        const Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
     bloc.add(GetTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<LoadingState>(),
-      isA<GetTrendingMoviesListFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<GetTrendingMoviesListFailureState>()]));
   });
 
-  test('Should return all states in order and TimeWindowEmptyFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
+  test(
+      'Should return all states in order and TimeWindowEmptyFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+        const Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
     bloc.add(GetTrendingMoviesListEvent('', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<LoadingState>(),
-      isA<TimeWindowEmptyFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<TimeWindowEmptyFailureState>()]));
   });
 
-  test('Should return all states in order and UnauthorizedFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(UnauthorizedFailure('UnauthorizedFailure')));
+  test(
+      'Should return all states in order and UnauthorizedFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer(
+        (invocation) async => Left(UnauthorizedFailure('UnauthorizedFailure')));
     bloc.add(GetTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<LoadingState>(),
-      isA<UnauthorizedFailureState>()
-    ]));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<UnauthorizedFailureState>()]));
   });
 
-  test('Should return all states in order and NotFoundFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(NotFoundFailure('NotFoundFailure')));
+  test(
+      'Should return all states in order and NotFoundFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer(
+        (invocation) async => Left(NotFoundFailure('NotFoundFailure')));
     bloc.add(GetTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<LoadingState>(),
-      isA<NotFoundFailureState>()
-    ]));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<NotFoundFailureState>()]));
   });
 
-  test('Should return all states in order and GenericFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(GenericFailure('GenericFailure')));
+  test(
+      'Should return all states in order and GenericFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer(
+        (invocation) async => Left(GeneralFailure('GenericFailure')));
     bloc.add(GetTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<LoadingState>(),
-      isA<GenericFailureState>()
-    ]));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<GenericFailureState>()]));
   });
 
   //fetch
 
-  test('Should return all states in order and GetTrendingMoviesListSuccessState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Right(movieListPage));
+  test(
+      'Should return all states in order and GetTrendingMoviesListSuccessState as final state',
+      () async {
+    when(() => usecase(any(), any()))
+        .thenAnswer((invocation) async => const Right(movieListPage));
     bloc.add(FetchTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<FetchTrendingMoviesListLoadingState>(),
-      isA<FetchTrendingMoviesListSuccessState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<FetchTrendingMoviesListLoadingState>(),
+          isA<FetchTrendingMoviesListSuccessState>()
+        ]));
   });
 
-  test('Should return all states in order and GetTrendingMoviesListFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
+  test(
+      'Should return all states in order and GetTrendingMoviesListFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+        const Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
     bloc.add(FetchTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<FetchTrendingMoviesListLoadingState>(),
-      isA<FetchTrendingMoviesListFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<FetchTrendingMoviesListLoadingState>(),
+          isA<FetchTrendingMoviesListFailureState>()
+        ]));
   });
 
-  test('Should return all states in order and TimeWindowEmptyFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
+  test(
+      'Should return all states in order and TimeWindowEmptyFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+        const Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
     bloc.add(FetchTrendingMoviesListEvent('', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<FetchTrendingMoviesListLoadingState>(),
-      isA<TimeWindowEmptyFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<FetchTrendingMoviesListLoadingState>(),
+          isA<TimeWindowEmptyFailureState>()
+        ]));
   });
 
-  test('Should return all states in order and UnauthorizedFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(UnauthorizedFailure('UnauthorizedFailure')));
+  test(
+      'Should return all states in order and UnauthorizedFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer(
+        (invocation) async => Left(UnauthorizedFailure('UnauthorizedFailure')));
     bloc.add(FetchTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<FetchTrendingMoviesListLoadingState>(),
-      isA<UnauthorizedFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<FetchTrendingMoviesListLoadingState>(),
+          isA<UnauthorizedFailureState>()
+        ]));
   });
 
-  test('Should return all states in order and NotFoundFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(NotFoundFailure('NotFoundFailure')));
+  test(
+      'Should return all states in order and NotFoundFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer(
+        (invocation) async => Left(NotFoundFailure('NotFoundFailure')));
     bloc.add(FetchTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<FetchTrendingMoviesListLoadingState>(),
-      isA<NotFoundFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<FetchTrendingMoviesListLoadingState>(),
+          isA<NotFoundFailureState>()
+        ]));
   });
 
-  test('Should return all states in order and GenericFailureState as final state', () async{
-    when(() => usecase(any(), any())).thenAnswer((invocation) async => Left(GenericFailure('GenericFailure')));
+  test(
+      'Should return all states in order and GenericFailureState as final state',
+      () async {
+    when(() => usecase(any(), any())).thenAnswer(
+        (invocation) async => Left(GeneralFailure('GenericFailure')));
     bloc.add(FetchTrendingMoviesListEvent('timeWindow', 1));
-    expect(bloc.stream, emitsInOrder([
-      isA<FetchTrendingMoviesListLoadingState>(),
-      isA<GenericFailureState>()
-    ]));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<FetchTrendingMoviesListLoadingState>(),
+          isA<GenericFailureState>()
+        ]));
   });
 }

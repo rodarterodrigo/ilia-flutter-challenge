@@ -1,4 +1,4 @@
-class Movie{
+class Movie {
   final String releaseDate;
   final String originalLanguage;
   final int id;
@@ -15,22 +15,21 @@ class Movie{
   final double popularity;
   final String mediaType;
 
-  Movie(
-      {
-        required this.releaseDate,
-        required this.originalLanguage,
-        required this.id,
-        required this.posterPath,
-        required this.haveVideo,
-        required this.voteAverage,
-        required this.title,
-        required this.voteCount,
-        required this.genreIds,
-        required this.originalTitle,
-        required this.backdropPath,
-        required this.isAdult,
-        required this.overview,
-        required this.popularity,
-        required this.mediaType
-      });
+  const Movie({
+    required this.releaseDate,
+    required this.originalLanguage,
+    required this.id,
+    required this.posterPath,
+    required this.haveVideo,
+    required this.voteAverage,
+    required this.title,
+    required this.voteCount,
+    required this.genreIds,
+    required this.originalTitle,
+    required this.backdropPath,
+    required this.isAdult,
+    required this.overview,
+    required this.popularity,
+    required this.mediaType,
+  });
 }
