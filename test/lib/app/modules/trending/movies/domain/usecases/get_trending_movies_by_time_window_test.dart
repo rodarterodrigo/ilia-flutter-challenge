@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:imdb_trending/app/core/shared/domain/failures/generic_failure.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/not_found_failure.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/unauthorized_failure.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_page.dart';
@@ -17,26 +18,32 @@ final usecase = GetTrendingMoviesByTimeWindow(repository);
 void main(){
 
   test('Must return an MovieListPage entity', () async{
-    when(() => repository()).thenAnswer((realInvocation) async => Right(MovieListPageFake()));
-    final result = await usecase('timeWindow');
+    when(() => repository(any(), any())).thenAnswer((realInvocation) async => Right(MovieListPageFake()));
+    final result = await usecase('timeWindow', 1);
     expect(result.fold(id, id), isA<MovieListPage>());
   });
 
   test('Must return an TimeWindowEmptyFailure', () async{
-    when(() => repository()).thenAnswer((realInvocation) async => Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
-    final result = await usecase('');
+    when(() => repository(any(), any())).thenAnswer((realInvocation) async => Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
+    final result = await usecase('', 1);
     expect(result.fold(id, id), isA<TimeWindowEmptyFailure>());
   });
 
   test('Must return an UnauthorizedFailure', () async{
-    when(() => repository()).thenAnswer((realInvocation) async => Left(UnauthorizedFailure('UnauthorizedFailure')));
-    final result = await usecase('timeWindow');
+    when(() => repository(any(), any())).thenAnswer((realInvocation) async => Left(UnauthorizedFailure('UnauthorizedFailure')));
+    final result = await usecase('timeWindow', 1);
     expect(result.fold(id, id), isA<UnauthorizedFailure>());
   });
 
   test('Must return an NotFoundFailure', () async{
-    when(() => repository()).thenAnswer((realInvocation) async => Left(NotFoundFailure('NotFoundFailure')));
-    final result = await usecase('timeWindow');
+    when(() => repository(any(), any())).thenAnswer((realInvocation) async => Left(NotFoundFailure('NotFoundFailure')));
+    final result = await usecase('timeWindow', 1);
     expect(result.fold(id, id), isA<NotFoundFailure>());
+  });
+
+  test('Must return an GenericFailure', () async{
+    when(() => repository(any(), any())).thenAnswer((realInvocation) async => Left(GenericFailure('GenericFailure')));
+    final result = await usecase('timeWindow', 1);
+    expect(result.fold(id, id), isA<GenericFailure>());
   });
 }

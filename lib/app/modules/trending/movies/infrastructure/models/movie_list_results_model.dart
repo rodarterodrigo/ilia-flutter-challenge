@@ -9,8 +9,8 @@ class MovieListResultsModel extends MovieListResults{
     movies: movies,
   );
 
-  factory MovieListResultsModel.fromJson(Map<String, dynamic> json) =>
+  factory MovieListResultsModel.fromJson(List<Map<String, dynamic>> json) =>
       MovieListResultsModel(
-          movies: (json as List).map((e) => MovieModel.fronJson(e)).toList(),
+          movies: json.map((e) => MovieModel.fronJson(e)).toList(),
       );
 }
