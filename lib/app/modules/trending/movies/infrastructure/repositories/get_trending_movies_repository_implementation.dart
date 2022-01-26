@@ -6,7 +6,7 @@ import 'package:imdb_trending/app/core/shared/domain/failures/unauthorized_failu
 import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/not_found_datasource_exception.dart';
 import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_page.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/failures/get_trending_movies_list_failure.dart';
+import 'package:imdb_trending/app/modules/trending/movies/domain/failures/trending_movies_list_failure.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/repositories/get_trending_movies_repository.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/datasources/get_trending_movies_datasource.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
@@ -22,7 +22,7 @@ class GetTrendingMoviesRepositoryImplementation implements GetTrendingMoviesRepo
       return Right(await datasource(timeWindow, page));
     }
     on GetTrendingMoviesListDatasourceException catch(e){
-      return Left(GetTrendingMoviesListFailure(e.message));
+      return Left(TrendingMoviesListFailure(e.message));
     }
     on UnauthorizedDatasourceException catch(e){
       return Left(UnauthorizedFailure(e.message));
