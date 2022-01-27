@@ -5,13 +5,13 @@ abstract class RequestClient {
   Future<HttpResponse> get(String url);
 }
 
-class DioClientImplementation implements RequestClient {
+class RequestClientImplementation implements RequestClient {
   final Dio dio;
   final Options _options = Options(
     validateStatus: (status) => true,
   );
 
-  DioClientImplementation(this.dio);
+  RequestClientImplementation(this.dio);
 
   @override
   Future<HttpResponse> get(String url) async {

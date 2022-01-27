@@ -17,8 +17,8 @@ class TrendingMoviesListModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/',
-        child: (context, arguments) => const TrendingMoviesListPage(
-              timeWindow: 'week',
+        child: (context, arguments) => TrendingMoviesListPage(
+              timeWindow: arguments.data,
             ),
         transition: TransitionType.rightToLeft,
         duration: const Duration(milliseconds: 400)),

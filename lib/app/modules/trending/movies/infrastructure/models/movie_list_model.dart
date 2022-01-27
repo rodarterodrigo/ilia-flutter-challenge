@@ -1,9 +1,9 @@
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_page.dart';
+import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_results.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_results_model.dart';
 
-class MovieListPageModel extends MovieListPage {
- const MovieListPageModel({
+class MovieListModel extends MovieList {
+  const MovieListModel({
     required MovieListResults results,
     required int page,
     required int totalPages,
@@ -15,8 +15,7 @@ class MovieListPageModel extends MovieListPage {
           totalResults: totalResults,
         );
 
-  factory MovieListPageModel.fromJson(Map<String, dynamic> json) =>
-      MovieListPageModel(
+  factory MovieListModel.fromJson(Map<String, dynamic> json) => MovieListModel(
         results: MovieListResultsModel.fromJson(json['results']),
         page: json['page'],
         totalPages: json['total_pages'],

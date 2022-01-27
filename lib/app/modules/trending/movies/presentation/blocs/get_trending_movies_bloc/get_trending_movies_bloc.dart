@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:imdb_trending/app/core/shared/domain/failures/generic_failure.dart';
+import 'package:imdb_trending/app/core/shared/domain/failures/general_failure.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/not_found_failure.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/unauthorized_failure.dart';
+import 'package:imdb_trending/app/core/shared/presentation/blocs/states/general_failure_state.dart';
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/general_states.dart';
-import 'package:imdb_trending/app/core/shared/presentation/blocs/states/generic_failure_state.dart';
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/loading_state.dart';
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/not_found_failure_state.dart';
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/unauthorized_failure_state.dart';
@@ -28,7 +28,7 @@ class GetTrendingMoviesBloc
   final GetTrendingMoviesByTimeWindowAbstraction usecase;
 
   bool lastPage = false;
-  int page = 0;
+  int page = 1;
   List<Movie> movies = [];
 
   GetTrendingMoviesBloc(this.usecase) : super(const LoadingState()) {
@@ -52,7 +52,7 @@ class GetTrendingMoviesBloc
         case TimeWindowEmptyFailure:
           return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
         case GeneralFailure:
-          return GenericFailureState(l as GeneralFailure);
+          return GeneralFailureState(l as GeneralFailure);
         default:
           return GetTrendingMoviesListFailureState(
               l as TrendingMoviesListFailure);
@@ -76,13 +76,13 @@ class GetTrendingMoviesBloc
         case TimeWindowEmptyFailure:
           return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
         case GeneralFailure:
-          return GenericFailureState(l as GeneralFailure);
+          return GeneralFailureState(l as GeneralFailure);
         default:
           return FetchTrendingMoviesListFailureState(
               l as TrendingMoviesListFailure);
       }
     }, (r) {
-      if (r.results.movies.length < 10) {
+      if (r.results.movies.length < 20) {
         lastPage = true;
       } else {
         lastPage = false;

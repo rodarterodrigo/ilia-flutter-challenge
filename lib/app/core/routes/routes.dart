@@ -1,3 +1,4 @@
 class Routes {
-  static get trendingMovies => '/';
+  static get home => '/';
+  static get trendingMovies => '/trendingmovies';
 }

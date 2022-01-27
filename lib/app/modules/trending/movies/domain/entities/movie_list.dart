@@ -1,12 +1,12 @@
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_results.dart';
 
-class MovieListPage {
+class MovieList {
   final MovieListResults results;
   final int page;
   final int totalPages;
   final int totalResults;
 
-  const MovieListPage({
+  const MovieList({
     required this.results,
     required this.page,
     required this.totalPages,

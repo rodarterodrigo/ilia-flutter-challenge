@@ -5,7 +5,7 @@ import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/unauthor
 import 'package:imdb_trending/app/modules/trending/movies/external/settings/get_trending_movies_settings.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/datasources/get_trending_movies_datasource.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
-import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_page_model.dart';
+import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_model.dart';
 
 class GetTrendingMoviesDatasourceImplementation
     implements GetTrendingMoviesDatasource {
@@ -14,20 +14,21 @@ class GetTrendingMoviesDatasourceImplementation
   const GetTrendingMoviesDatasourceImplementation(this.requestClient);
 
   @override
-  Future<MovieListPageModel> call(String timeWindow, int page) async {
+  Future<MovieListModel> call(String timeWindow, int page) async {
     final response = await requestClient.get("${ServerConfiguration.serverHost}"
         "${GetTrendingMovieSettings.output}$timeWindow?api_key=${ServerConfiguration.apiKey}"
         "&page=$page");
 
     switch (response.statusCode) {
       case 200:
-        return MovieListPageModel.fromJson(response.data);
+        return MovieListModel.fromJson(response.data);
       case 401:
         throw UnauthorizedDatasourceException(response.data['status_message']);
       case 404:
         throw NotFoundDatasourceException(response.data['status_message']);
       default:
-        throw const GetTrendingMoviesListDatasourceException('Houve um erro interno');
+        throw const GetTrendingMoviesListDatasourceException(
+            'Houve um erro interno');
     }
   }
 }

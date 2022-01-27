@@ -6,7 +6,7 @@ import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/not_foun
 import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
 import 'package:imdb_trending/app/modules/trending/movies/external/datasources/get_trending_movies_datasource_implementation.dart';
 import 'package:imdb_trending/app/modules/trending/movies/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
-import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_page_model.dart';
+import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../mocks/get_trending_movies_datasource_not_found_response.dart';
@@ -38,7 +38,7 @@ void main() {
         const HttpResponse(
             data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 200));
     final result = await datasource('timeWindow', 1);
-    expect(result, isA<MovieListPageModel>());
+    expect(result, isA<MovieListModel>());
   });
 
   test('Must throw an GetTrendingMoviesListDatasourceException', () async {
@@ -69,7 +69,7 @@ void main() {
 
   test('Must throw an GetTrendingMoviesListDatasourceException', () async {
     when(() => requestClient.get(any())).thenThrow(
-        GetTrendingMoviesListDatasourceException(
+        const GetTrendingMoviesListDatasourceException(
             'GetTrendingMoviesListDatasourceException'));
     final result = datasource('timeWindow', 1);
     expect(result, throwsA(isA<GetTrendingMoviesListDatasourceException>()));
@@ -77,14 +77,15 @@ void main() {
 
   test('Must throw an UnauthorizedDatasourceException', () async {
     when(() => requestClient.get(any())).thenThrow(
-        UnauthorizedDatasourceException('UnauthorizedDatasourceException'));
+        const UnauthorizedDatasourceException(
+            'UnauthorizedDatasourceException'));
     final result = datasource('timeWindow', 1);
     expect(result, throwsA(isA<UnauthorizedDatasourceException>()));
   });
 
   test('Must throw an NotFoundDatasourceException', () async {
-    when(() => requestClient.get(any()))
-        .thenThrow(NotFoundDatasourceException('NotFoundDatasourceException'));
+    when(() => requestClient.get(any())).thenThrow(
+        const NotFoundDatasourceException('NotFoundDatasourceException'));
     final result = datasource('timeWindow', 1);
     expect(result, throwsA(isA<NotFoundDatasourceException>()));
   });

@@ -36,19 +36,19 @@ class MovieModel extends Movie {
         );
 
   factory MovieModel.fronJson(Map<String, dynamic> json) => MovieModel(
-      releaseDate: json['release_date'],
-      originalLanguage: json['original_language'],
-      id: json['id'],
-      posterPath: json['poster_path'],
-      haveVideo: json['video'],
-      voteAverage: json['vote_average'],
-      title: json['title'],
-      voteCount: json['vote_count'],
+      releaseDate: json['release_date']?? '',
+      originalLanguage: json['original_language']?? '',
+      id: json['id']?? -1,
+      posterPath: json['poster_path']?? '',
+      haveVideo: json['video']?? false,
+      voteAverage: json['vote_average']?? -1,
+      title: json['title']?? '',
+      voteCount: json['vote_count']?? -1,
       genreIds: (json['genre_ids'] as List).map((e) => e as int).toList(),
-      originalTitle: json['original_title'],
-      backdropPath: json['backdrop_path'],
-      isAdult: json['adult'],
-      overview: json['overview'],
-      popularity: json['popularity'],
-      mediaType: json['media_type']);
+      originalTitle: json['original_title']?? '',
+      backdropPath: json['backdrop_path']?? '',
+      isAdult: json['adult']?? false,
+      overview: json['overview']?? '',
+      popularity: json['popularity']?? '',
+      mediaType: json['media_type']?? '');
 }

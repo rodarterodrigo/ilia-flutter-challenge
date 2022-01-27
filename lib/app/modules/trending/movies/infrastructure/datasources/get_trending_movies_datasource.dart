@@ -1,5 +1,5 @@
-import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_page_model.dart';
+import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_model.dart';
 
 abstract class GetTrendingMoviesDatasource {
-  Future<MovieListPageModel> call(String timeWindow, int page);
+  Future<MovieListModel> call(String timeWindow, int page);
 }
