@@ -22,7 +22,8 @@ class ListCardShimmer extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
                   color: Colors.transparent,
-                  border: Border.all(color: Colors.white, width: 2, style: BorderStyle.solid),
+                  border: Border.all(
+                      color: Colors.white, width: 2, style: BorderStyle.solid),
                 ),
                 width: 110,
                 height: 162,
@@ -51,14 +52,14 @@ class ListCardShimmer extends StatelessWidget {
                         width: 200,
                         height: 16,
                       ),
-                       const SizedBox(width: 8),
-                       Container(
-                         decoration: const BoxDecoration(
-                           borderRadius: BorderRadius.all(Radius.circular(4)),
-                           color: Colors.white,
-                         ),
-                         height: 16,
-                         width: 16,
+                      const SizedBox(width: 8),
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          color: Colors.white,
+                        ),
+                        height: 16,
+                        width: 16,
                       )
                     ],
                   ),

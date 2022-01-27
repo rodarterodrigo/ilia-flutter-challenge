@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,6 +13,7 @@ import 'package:imdb_trending/app/core/shared/widgets/cards/movie_list_card.dart
 import 'package:imdb_trending/app/core/shared/widgets/dialogs/generic_dialog.dart';
 import 'package:imdb_trending/app/core/shared/widgets/list_view_helpers/disable_splash.dart';
 import 'package:imdb_trending/app/core/shared/widgets/shimmers/list_card_shimmer.dart';
+import 'package:imdb_trending/app/modules/trending/movies/domain/entities/trending_movies_request_parameter.dart';
 import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/events/fetch_trending_movies_list_event.dart';
 import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/events/get_trending_movies_list_event.dart';
 import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/get_trending_movies_bloc.dart';
@@ -36,7 +38,13 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
 
   @override
   void initState() {
-    getTrendingMoviesBloc.add(GetTrendingMoviesListEvent(widget.timeWindow, 1));
+    getTrendingMoviesBloc
+        .add(GetTrendingMoviesListEvent(TrendingMoviesRequestParameter(
+      page: 1,
+      language: Platform.localeName.replaceAll('_', '-'),
+      locationLanguage: Platform.localeName.split('_').first,
+      timeWindow: widget.timeWindow,
+    )));
     super.initState();
   }
 
@@ -49,8 +57,8 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
       ),
       body: SafeArea(
           child: Center(
-            child: DisableSplash(
-        child: SingleChildScrollView(
+        child: DisableSplash(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -105,8 +113,16 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                                     getTrendingMoviesBloc.lastPage = true;
                                     getTrendingMoviesBloc.add(
                                       FetchTrendingMoviesListEvent(
-                                          widget.timeWindow,
-                                          getTrendingMoviesBloc.page),
+                                          TrendingMoviesRequestParameter(
+                                            page: getTrendingMoviesBloc.page,
+                                            language: Platform.localeName
+                                                .replaceAll('_', '-'),
+                                            locationLanguage: Platform.localeName
+                                                .split('_')
+                                                .first,
+                                            timeWindow: widget.timeWindow,
+                                          ),
+                                      ),
                                     );
                                   }
                                 }
@@ -115,7 +131,8 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: MediaQuery.of(context).orientation ==
+                                    height: MediaQuery.of(context)
+                                                .orientation ==
                                             Orientation.portrait
                                         ? MediaQuery.of(context).size.height *
                                             0.75
@@ -126,11 +143,19 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                                       onRefresh: () async {
                                         getTrendingMoviesBloc.page = 0;
                                         getTrendingMoviesBloc.lastPage = false;
-                                        getTrendingMoviesBloc
-                                            .add(GetTrendingMoviesListEvent(
-                                          widget.timeWindow,
-                                          1,
-                                        ));
+                                        getTrendingMoviesBloc.add(
+                                            GetTrendingMoviesListEvent(
+                                                TrendingMoviesRequestParameter(
+                                                  page: 1,
+                                                  language: Platform.localeName
+                                                      .replaceAll('_', '-'),
+                                                  locationLanguage: Platform.localeName
+                                                      .split('_')
+                                                      .first,
+                                                  timeWindow: widget.timeWindow,
+                                                ),
+                                            ),
+                                        );
                                       },
                                       child: DisableSplash(
                                         child: ListView.separated(
@@ -146,14 +171,17 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                                                     '${ServerConfiguration.serverImages}${getTrendingMoviesBloc.movies[index].posterPath}',
                                                 title: getTrendingMoviesBloc
                                                     .movies[index].title,
-                                                voteAverage: getTrendingMoviesBloc
-                                                    .movies[index].voteAverage,
+                                                voteAverage:
+                                                    getTrendingMoviesBloc
+                                                        .movies[index]
+                                                        .voteAverage,
                                                 overview: getTrendingMoviesBloc
                                                     .movies[index].overview,
                                               );
                                             },
-                                            separatorBuilder: (context, index) =>
-                                                const SizedBox(),
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    const SizedBox(),
                                             itemCount: getTrendingMoviesBloc
                                                 .movies.length),
                                       ),
@@ -189,9 +217,10 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                             context: context,
                             isError: true,
                             onPressed: () => Modular.to.pop(),
-                            message: (state as GetTrendingMoviesListFailureState)
-                                .failure
-                                .message,
+                            message:
+                                (state as GetTrendingMoviesListFailureState)
+                                    .failure
+                                    .message,
                             title: 'Erro!',
                           );
                         case FetchTrendingMoviesListFailureState:
@@ -228,9 +257,9 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                     }),
               ],
             ),
+          ),
         ),
-      ),
-          )),
+      )),
     );
   }
 }

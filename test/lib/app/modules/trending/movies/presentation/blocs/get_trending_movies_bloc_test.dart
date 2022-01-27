@@ -9,6 +9,7 @@ import 'package:imdb_trending/app/core/shared/presentation/blocs/states/not_foun
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/unauthorized_failure_state.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_results.dart';
+import 'package:imdb_trending/app/modules/trending/movies/domain/entities/trending_movies_request_parameter.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/failures/time_window_empty_failure.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/failures/trending_movies_list_failure.dart';
 import 'package:imdb_trending/app/modules/trending/movies/domain/usecases/get_trending_movies_by_time_window.dart';
@@ -26,6 +27,9 @@ import 'package:mocktail/mocktail.dart';
 class GetTrendingMoviesByTimeWindowAbstractionMock extends Mock
     implements GetTrendingMoviesByTimeWindowAbstraction {}
 
+class TrendingMoviesRequestParameterFake extends Fake
+    implements TrendingMoviesRequestParameter {}
+
 final usecase = GetTrendingMoviesByTimeWindowAbstractionMock();
 final bloc = GetTrendingMoviesBloc(usecase);
 
@@ -35,13 +39,33 @@ const MovieList movieListPage = MovieList(
     totalPages: 1,
     totalResults: 1);
 
+const TrendingMoviesRequestParameter filledParameter =
+    TrendingMoviesRequestParameter(
+  page: 1,
+  language: 'pt-BR',
+  locationLanguage: 'pt',
+  timeWindow: 'timeWindow',
+);
+
+const TrendingMoviesRequestParameter timeWindowEmptyParameter =
+    TrendingMoviesRequestParameter(
+  page: 1,
+  language: 'pt-BR',
+  locationLanguage: 'pt',
+  timeWindow: '',
+);
+
 void main() {
+  setUpAll(() {
+    registerFallbackValue(TrendingMoviesRequestParameterFake());
+  });
+
   test(
       'Should return all states in order and GetTrendingMoviesListSuccessState as final state',
       () async {
-    when(() => usecase(any(), any()))
+    when(() => usecase(any()))
         .thenAnswer((invocation) async => const Right(movieListPage));
-    bloc.add(const GetTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const GetTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder(
@@ -51,9 +75,9 @@ void main() {
   test(
       'Should return all states in order and GetTrendingMoviesListFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
-    bloc.add(const GetTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const GetTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder(
@@ -63,9 +87,9 @@ void main() {
   test(
       'Should return all states in order and TimeWindowEmptyFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
-    bloc.add(const GetTrendingMoviesListEvent('', 1));
+    bloc.add(const GetTrendingMoviesListEvent(timeWindowEmptyParameter));
     expect(
         bloc.stream,
         emitsInOrder(
@@ -75,9 +99,9 @@ void main() {
   test(
       'Should return all states in order and UnauthorizedFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(UnauthorizedFailure('UnauthorizedFailure')));
-    bloc.add(const GetTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const GetTrendingMoviesListEvent(filledParameter));
     expect(bloc.stream,
         emitsInOrder([isA<LoadingState>(), isA<UnauthorizedFailureState>()]));
   });
@@ -85,9 +109,9 @@ void main() {
   test(
       'Should return all states in order and NotFoundFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer(
+    when(() => usecase(any())).thenAnswer(
         (invocation) async => const Left(NotFoundFailure('NotFoundFailure')));
-    bloc.add(const GetTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const GetTrendingMoviesListEvent(filledParameter));
     expect(bloc.stream,
         emitsInOrder([isA<LoadingState>(), isA<NotFoundFailureState>()]));
   });
@@ -95,9 +119,9 @@ void main() {
   test(
       'Should return all states in order and GeneralFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer(
+    when(() => usecase(any())).thenAnswer(
         (invocation) async => const Left(GeneralFailure('GeneralFailure')));
-    bloc.add(const GetTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const GetTrendingMoviesListEvent(filledParameter));
     expect(bloc.stream,
         emitsInOrder([isA<LoadingState>(), isA<GeneralFailureState>()]));
   });
@@ -107,9 +131,9 @@ void main() {
   test(
       'Should return all states in order and GetTrendingMoviesListSuccessState as final state',
       () async {
-    when(() => usecase(any(), any()))
+    when(() => usecase(any()))
         .thenAnswer((invocation) async => const Right(movieListPage));
-    bloc.add(const FetchTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const FetchTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -121,9 +145,9 @@ void main() {
   test(
       'Should return all states in order and GetTrendingMoviesListFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
-    bloc.add(const FetchTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const FetchTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -135,9 +159,9 @@ void main() {
   test(
       'Should return all states in order and TimeWindowEmptyFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
-    bloc.add(const FetchTrendingMoviesListEvent('', 1));
+    bloc.add(const FetchTrendingMoviesListEvent(timeWindowEmptyParameter));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -149,9 +173,9 @@ void main() {
   test(
       'Should return all states in order and UnauthorizedFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer((invocation) async =>
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(UnauthorizedFailure('UnauthorizedFailure')));
-    bloc.add(const FetchTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const FetchTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -163,9 +187,9 @@ void main() {
   test(
       'Should return all states in order and NotFoundFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer(
+    when(() => usecase(any())).thenAnswer(
         (invocation) async => const Left(NotFoundFailure('NotFoundFailure')));
-    bloc.add(const FetchTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const FetchTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -177,9 +201,9 @@ void main() {
   test(
       'Should return all states in order and GeneralFailureState as final state',
       () async {
-    when(() => usecase(any(), any())).thenAnswer(
+    when(() => usecase(any())).thenAnswer(
         (invocation) async => const Left(GeneralFailure('GeneralFailure')));
-    bloc.add(const FetchTrendingMoviesListEvent('timeWindow', 1));
+    bloc.add(const FetchTrendingMoviesListEvent(filledParameter));
     expect(
         bloc.stream,
         emitsInOrder([

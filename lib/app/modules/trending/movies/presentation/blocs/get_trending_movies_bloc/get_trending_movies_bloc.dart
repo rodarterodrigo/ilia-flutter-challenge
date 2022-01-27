@@ -42,7 +42,7 @@ class GetTrendingMoviesBloc
   void _mapGetTrendingMoviesListToState(
       GetTrendingMoviesListEvent event, Emitter<GeneralStates> emitter) async {
     emitter(const LoadingState());
-    final result = await usecase(event.timeWindow, event.page);
+    final result = await usecase(event.parameter);
     emitter(result.fold((l) {
       switch (l.runtimeType) {
         case UnauthorizedFailure:
@@ -66,7 +66,7 @@ class GetTrendingMoviesBloc
   void _mapFetchTrendingMoviesListToState(FetchTrendingMoviesListEvent event,
       Emitter<GeneralStates> emitter) async {
     emitter(const FetchTrendingMoviesListLoadingState());
-    final result = await usecase(event.timeWindow, event.page);
+    final result = await usecase(event.parameter);
     emitter(result.fold((l) {
       switch (l.runtimeType) {
         case UnauthorizedFailure:

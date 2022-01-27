@@ -12,7 +12,6 @@ class AppWidget extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.dark,
       supportedLocales: const [
-        Locale('en', "US"),
         Locale('pt', "BR"),
       ],
       localizationsDelegates: const [

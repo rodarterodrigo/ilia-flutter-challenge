@@ -81,8 +81,10 @@ class _FilledButton extends StatelessWidget {
             enableIcon ? icon != null : true,
             throw Exception(
                 'Um ícone deve ser apresentado caso a propriedade enableIcon estiver como verdadeira')),
-        assert(enableText ? text != null : true,
-            throw Exception('Um texto deve ser apresentado caso a propriedade enableText estiver como verdadeira'));
+        assert(
+            enableText ? text != null : true,
+            throw Exception(
+                'Um texto deve ser apresentado caso a propriedade enableText estiver como verdadeira'));
 
   final GestureTapCallback onPressed;
   final Color? buttonColor;
