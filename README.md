@@ -20,4 +20,4 @@ mocktail 0.2.0 https://pub.dev/packages/mocktail
 
 # App demonstration video:
 
-https://youtu.be/tniqLFFITcI
+https://youtu.be/xCLUiytkzas
