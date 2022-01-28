@@ -68,6 +68,28 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomInputText(
+                    fillColor: Theme.of(context).primaryColor,
+                    onChanged: (value) => getTrendingMoviesBloc.add(SearchTrendingMoviesListEvent(
+                      TrendingMoviesRequestParameter(
+                        page: getTrendingMoviesBloc.page,
+                        language: Platform.localeName
+                            .replaceAll('_', '-'),
+                        locationLanguage: Platform.localeName
+                            .split('_')
+                            .first,
+                        timeWindow: widget.timeWindow,
+                      ),
+                      searchController.text,
+                    )),
+                    controller: searchController,
+                    sufixIcon: UniconsLine.search_alt,
+                    label: 'Buscar',
+                    borderRadius: 4,
+                  ),
+                ),
                 BlocConsumer<GetTrendingMoviesBloc, GeneralStates>(
                     bloc: getTrendingMoviesBloc,
                     builder: (context, state) {
@@ -136,30 +158,6 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                               },
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: CustomInputText(
-                                      textColor: Theme.of(context).highlightColor,
-                                      fillColor: Theme.of(context).primaryColor,
-                                      labelColor: Colors.white,
-                                      onChanged: (value) => getTrendingMoviesBloc.add(SearchTrendingMoviesListEvent(
-                                        TrendingMoviesRequestParameter(
-                                          page: getTrendingMoviesBloc.page,
-                                          language: Platform.localeName
-                                              .replaceAll('_', '-'),
-                                          locationLanguage: Platform.localeName
-                                              .split('_')
-                                              .first,
-                                          timeWindow: widget.timeWindow,
-                                        ),
-                                          searchController.text,
-                                      )),
-                                      controller: searchController,
-                                      sufixIcon: UniconsLine.search_alt,
-                                      label: 'Buscar',
-                                      borderRadius: 4,
-                                    ),
-                                  ),
                                   SizedBox(
                                     height: MediaQuery.of(context)
                                                 .orientation ==

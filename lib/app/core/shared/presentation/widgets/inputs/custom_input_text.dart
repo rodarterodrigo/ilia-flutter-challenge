@@ -85,7 +85,7 @@ class CustomInputText extends StatelessWidget {
       textCapitalization: textCapitalization ?? TextCapitalization.sentences,
       inputFormatters: inputFormatters,
       style: TextStyle(
-        color: textColor ?? Colors.grey[700],
+        color: textColor ?? Colors.white,
         fontWeight: FontWeight.w400,
       ),
       textInputAction: textInputAction,
@@ -104,7 +104,7 @@ class CustomInputText extends StatelessWidget {
           child: Icon(
             sufixIcon,
             color:
-            errorText != null ? Theme.of(context).errorColor : Colors.grey[700],
+            errorText != null ? Theme.of(context).errorColor : Colors.white,
           ),
         )
             : null,
@@ -114,16 +114,16 @@ class CustomInputText extends StatelessWidget {
           child: Icon(
             prefixIcon,
             color:
-            errorText != null ? Theme.of(context).errorColor : Colors.grey[700],
+            errorText != null ? Theme.of(context).errorColor : Colors.white,
           ),
         )
             : null,
         labelText: label,
-        labelStyle: TextStyle(color: labelColor ?? Colors.grey[700]),
+        labelStyle: TextStyle(color: labelColor ?? Colors.white),
         hintStyle: Theme.of(context)
             .textTheme
             .bodyText1!
-            .copyWith(color: textColor ?? Colors.black54),
+            .copyWith(color: textColor ?? Colors.white),
         border: OutlineInputBorder(
           borderSide: BorderSide(
             // style: BorderStyle.solid,

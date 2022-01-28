@@ -118,6 +118,7 @@ class GetTrendingMoviesBloc
       }
     }, (r) {
       if(r.results.movies.isNotEmpty) {
+        movies.clear();
         movies.addAll(r.results.movies);
         if(event.searchValue.isNotEmpty) {
           movies = movies.where((element) =>
