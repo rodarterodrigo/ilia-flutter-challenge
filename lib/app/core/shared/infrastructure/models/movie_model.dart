@@ -41,7 +41,7 @@ class MovieModel extends Movie {
       id: json['id'] ?? -1,
       posterPath: json['poster_path'] ?? '',
       haveVideo: json['video'] ?? false,
-      voteAverage: json['vote_average'] ?? -1,
+      voteAverage: double.parse((json['vote_average']).toString()),
       title: json['title'] ?? '',
       voteCount: json['vote_count'] ?? -1,
       genreIds: (json['genre_ids'] as List).map((e) => e as int).toList(),

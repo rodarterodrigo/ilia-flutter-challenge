@@ -18,7 +18,7 @@ class SearchMovieDatasourceImplementation implements SearchMovieDatasource {
     final response = await requestClient.get("${ServerConfiguration.serverHost}"
         "${SearchMovieSettings.output}"
         "?query=${parameter.searchValue}"
-        "?api_key=${ServerConfiguration.apiKey}"
+        "&api_key=${ServerConfiguration.apiKey}"
         "&page=${parameter.page}"
         "&language=${parameter.language}"
         "&include_image_language=${parameter.locationLanguage}");

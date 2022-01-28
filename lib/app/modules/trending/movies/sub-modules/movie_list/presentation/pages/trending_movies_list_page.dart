@@ -11,12 +11,10 @@ import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/loading_
 import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/not_found_failure_state.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/unauthorized_failure_state.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/widgets/dialogs/generic_dialog.dart';
-import 'package:tmdb_trending/app/core/shared/presentation/widgets/inputs/custom_input_text.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/widgets/list_view_helpers/disable_splash.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/fetch_trending_movies_list_event.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/get_trending_movies_list_event.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/search_trending_movies_list_event.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/get_trending_movies_bloc.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_loading_state.dart';
@@ -24,7 +22,6 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/time_window_empty_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/widgets/card_shimmers/list_card_shimmer.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/widgets/cards/movie_list_card.dart';
-import 'package:unicons/unicons.dart';
 
 class TrendingMoviesListPage extends StatefulWidget {
   final String timeWindow;
@@ -46,11 +43,11 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
   void initState() {
     getTrendingMoviesBloc
         .add(GetTrendingMoviesListEvent(TrendingMoviesRequestParameter(
-      page: 1,
-      language: Platform.localeName.replaceAll('_', '-'),
-      locationLanguage: Platform.localeName.split('_').first,
-      timeWindow: widget.timeWindow,
-    )));
+          page: 1,
+          language: Platform.localeName.replaceAll('_', '-'),
+          locationLanguage: Platform.localeName.split('_').first,
+          timeWindow: widget.timeWindow,
+        )));
     super.initState();
   }
 
@@ -68,26 +65,6 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CustomInputText(
-                    fillColor: Theme.of(context).primaryColor,
-                    onChanged: (value) =>
-                        getTrendingMoviesBloc.add(SearchTrendingMoviesListEvent(
-                      TrendingMoviesRequestParameter(
-                        page: getTrendingMoviesBloc.page,
-                        language: Platform.localeName.replaceAll('_', '-'),
-                        locationLanguage: Platform.localeName.split('_').first,
-                        timeWindow: widget.timeWindow,
-                      ),
-                      searchController.text,
-                    )),
-                    controller: searchController,
-                    sufixIcon: UniconsLine.search_alt,
-                    label: 'Buscar',
-                    borderRadius: 4,
-                  ),
-                ),
                 BlocConsumer<GetTrendingMoviesBloc, GeneralStates>(
                     bloc: getTrendingMoviesBloc,
                     builder: (context, state) {

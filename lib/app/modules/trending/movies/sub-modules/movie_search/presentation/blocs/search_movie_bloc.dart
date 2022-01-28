@@ -22,12 +22,17 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_sear
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/presentation/blocs/states/search_movie_empty_query_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/presentation/blocs/states/search_movie_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/presentation/blocs/states/search_movie_success_state.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SearchMovieBloc extends Bloc<SearchMovieEvents, GeneralStates> implements Disposable{
   final SearchMovieByQueryAbstraction usecase;
 
   SearchMovieBloc(this.usecase) : super(const InitialState()){
-    on<SearchMovieEvent>(_mapSearchMovieToState);
+    on<SearchMovieEvent>(_mapSearchMovieToState,
+        transformer: (event, mapper) => event
+        .debounceTime(const Duration(milliseconds: 400))
+        .switchMap(mapper),
+    );
     on<FetchSearchMovieEvent>(_mapFetchSearchMovieToState);
   }
 

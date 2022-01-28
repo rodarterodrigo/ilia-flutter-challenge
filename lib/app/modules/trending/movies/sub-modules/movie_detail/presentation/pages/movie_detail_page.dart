@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tmdb_trending/app/core/config/config.dart';
 import 'package:tmdb_trending/app/core/helpers/date_time_helper.dart';
 import 'package:tmdb_trending/app/core/routes/routes.dart';
+import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/general_states.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/widgets/buttons/medium_button.dart';
 import 'package:tmdb_trending/app/core/shared/domain/entities/movie.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/events/get_movie_trailer_event.dart';
@@ -32,6 +34,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.movie.releaseDate);
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -48,10 +51,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child: SizedBox(
+                      child: widget.movie.posterPath.isEmpty?
+                      const SizedBox():
+                      SizedBox(
                         width: 440,
                         child: Hero(
-                          tag: widget.movie.title,
+                          tag: '${widget.movie.title}${widget.movie.posterPath}',
                           child: CachedNetworkImage(
                             imageUrl:
                                 '${ServerConfiguration.serverImages}${widget.movie.posterPath}',
@@ -101,6 +106,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const SizedBox(height: 16),
+                            widget.movie.releaseDate.isEmpty?
+                                const SizedBox():
                             Text(
                               DateTimeHelper.convertDateFromString(
                                   widget.movie.releaseDate),
@@ -111,12 +118,17 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               ),
                             ),
                             const SizedBox(height: 16),
-                            MediumButton(
-                              onPressed: () => Modular.to.pushNamed(
-                                  Routes.movieTrailer,
-                                  arguments:
-                                      getMovieTrailerBloc.trailers.first.key),
-                              text: 'Trailer',
+                            BlocBuilder<GetMovieTrailerBloc, GeneralStates>(
+                              bloc: getMovieTrailerBloc,
+                              builder:(context, state) => getMovieTrailerBloc.trailers.isEmpty?
+                              const SizedBox():
+                                  MediumButton(
+                                onPressed: () => Modular.to.pushNamed(
+                                    Routes.movieTrailer,
+                                    arguments:
+                                        getMovieTrailerBloc.trailers.first.key),
+                                text: 'Trailer',
+                              ),
                             )
                           ],
                         ),

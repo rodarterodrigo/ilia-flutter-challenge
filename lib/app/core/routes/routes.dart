@@ -5,4 +5,5 @@ class Routes {
   static get movieDetailModule => '/moviedetail';
   static get movieTrailer => '/trendingmovies/moviedetail/movietrailer';
   static get movieTrailerModule => '/movietrailer';
+  static get searchMovie => '/searchMovie';
 }

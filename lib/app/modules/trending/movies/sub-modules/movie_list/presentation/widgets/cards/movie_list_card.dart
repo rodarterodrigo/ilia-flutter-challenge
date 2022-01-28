@@ -35,8 +35,10 @@ class MovieListCard extends StatelessWidget {
               SizedBox(
                 width: 110,
                 height: 162,
-                child: Hero(
-                  tag: title,
+                child: imagePath.isEmpty?
+                const SizedBox():
+                Hero(
+                  tag: '$title$imagePath',
                   child: CachedNetworkImage(
                     imageUrl: imagePath,
                   ),

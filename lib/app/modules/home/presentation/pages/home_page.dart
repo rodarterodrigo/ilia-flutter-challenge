@@ -3,12 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:tmdb_trending/app/core/routes/routes.dart';
-import 'package:tmdb_trending/app/core/shared/presentation/widgets/inputs/custom_input_text.dart';
+import 'package:tmdb_trending/app/core/shared/presentation/widgets/buttons/medium_button.dart';
 import 'package:tmdb_trending/app/modules/home/presentation/widgets/cards/home_card.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/domain/entities/search_movie_parameter.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/presentation/blocs/events/search_movie_event.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/presentation/blocs/search_movie_bloc.dart';
-import 'package:unicons/unicons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final SearchMovieBloc searchMovieBloc = Modular.get<SearchMovieBloc>();
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -40,6 +35,14 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: MediumButton(
+                    onPressed: () => Modular.to.pushNamed(
+                        Routes.searchMovie),
+                    text: 'Buscar filmes',
+                  ),
+                ),
                 const SizedBox(height: 16),
                 const Text(
                   'Selecione qual listagem de filmes você deseja',

@@ -1,3 +1,3 @@
 class SearchMovieSettings {
-  static const String output = 'search/movie/';
+  static const String output = 'search/movie';
 }

@@ -177,6 +177,7 @@ class SearchMoviePage extends StatelessWidget {
                                                   searchMovieBloc
                                                       .movies[index]),
                                               imagePath:
+                                              searchMovieBloc.movies[index].posterPath.isEmpty? '':
                                               '${ServerConfiguration.serverImages}${searchMovieBloc.movies[index].posterPath}',
                                               title: searchMovieBloc
                                                   .movies[index].title,
