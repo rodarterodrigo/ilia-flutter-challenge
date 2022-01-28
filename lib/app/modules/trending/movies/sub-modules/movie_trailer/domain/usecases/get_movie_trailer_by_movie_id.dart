@@ -10,7 +10,7 @@ abstract class GetMovieTrailerByMovieIdAbstraction{
 class GetMovieTrailerByMovieId implements GetMovieTrailerByMovieIdAbstraction{
   final GetMovieTrailerResultsRepository repository;
 
-  GetMovieTrailerByMovieId(this.repository);
+  const GetMovieTrailerByMovieId(this.repository);
 
   @override
   Future<Either<Failures, MovieTrailer>> call(int movieId) async => await repository(movieId);
