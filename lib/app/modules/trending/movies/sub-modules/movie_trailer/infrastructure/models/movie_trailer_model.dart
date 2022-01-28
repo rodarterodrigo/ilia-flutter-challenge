@@ -1,5 +1,6 @@
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/domain/entities/movie_trailer.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/domain/entities/movie_trailer_results.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/infrastructure/models/movie_trailer_results_model.dart';
 
 class MovieTrailerModel extends MovieTrailer{
   MovieTrailerModel({
@@ -13,6 +14,6 @@ class MovieTrailerModel extends MovieTrailer{
   factory MovieTrailerModel.fromJson(Map<String, dynamic> json) =>
       MovieTrailerModel(
         id: json['id'],
-        movieTrailerResults: json['results'],
+        movieTrailerResults: MovieTrailerResultsModel.fromJson(json['results']),
       );
 }
