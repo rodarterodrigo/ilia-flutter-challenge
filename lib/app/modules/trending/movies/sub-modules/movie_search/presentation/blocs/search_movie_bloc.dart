@@ -61,7 +61,11 @@ class SearchMovieBloc extends Bloc<SearchMovieEvents, GeneralStates> implements 
               l as SearchMovieFailure);
       }
     }, (r) {
-      movies = r.results.movies;
+      if(event.parameter.searchValue.isEmpty) {
+        movies.clear();
+      } else {
+        movies = r.results.movies;
+      }
       return SearchMovieSuccessState(r);
     }));
   }
