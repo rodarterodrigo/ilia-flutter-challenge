@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imdb_trending/app/core/shared/presentation/widgets/buttons/enums/icon_location.dart';
+import 'package:tmdb_trending/app/core/shared/presentation/widgets/buttons/enums/icon_location.dart';
 
 class MediumButton extends StatelessWidget {
   final Color? disabledColor;

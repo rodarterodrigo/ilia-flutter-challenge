@@ -1,4 +1,4 @@
-import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/general_exceptions.dart';
+import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/general_exceptions.dart';
 
 class UnauthorizedDatasourceException implements GeneralExceptions {
   @override

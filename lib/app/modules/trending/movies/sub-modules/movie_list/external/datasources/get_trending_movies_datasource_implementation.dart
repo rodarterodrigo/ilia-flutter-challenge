@@ -1,12 +1,12 @@
-import 'package:imdb_trending/app/core/config/config.dart';
-import 'package:imdb_trending/app/core/packages/http_client.dart';
-import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/not_found_datasource_exception.dart';
-import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/external/settings/get_trending_movies_settings.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/datasources/get_trending_movies_datasource.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/models/movie_list_model.dart';
+import 'package:tmdb_trending/app/core/config/config.dart';
+import 'package:tmdb_trending/app/core/packages/http_client.dart';
+import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/not_found_datasource_exception.dart';
+import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/external/settings/get_trending_movies_settings.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/datasources/get_trending_movies_datasource.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/models/movie_list_model.dart';
 
 class GetTrendingMoviesDatasourceImplementation
     implements GetTrendingMoviesDatasource {

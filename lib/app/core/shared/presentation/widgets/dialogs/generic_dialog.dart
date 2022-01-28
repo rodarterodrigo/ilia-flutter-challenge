@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imdb_trending/app/core/shared/presentation/widgets/buttons/medium_button.dart';
+import 'package:tmdb_trending/app/core/shared/presentation/widgets/buttons/medium_button.dart';
 import 'package:unicons/unicons.dart';
 
 class GenericDialog extends StatelessWidget {

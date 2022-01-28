@@ -8,7 +8,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IMDB Trending Movies',
+      title: 'TMDB Trending Movies',
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.dark,
       supportedLocales: const [

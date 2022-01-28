@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:imdb_trending/app/core/config/config.dart';
-import 'package:imdb_trending/app/core/helpers/date_time_helper.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tmdb_trending/app/core/config/config.dart';
+import 'package:tmdb_trending/app/core/helpers/date_time_helper.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
 import 'package:unicons/unicons.dart';
 
 class MovieDetailPage extends StatelessWidget {

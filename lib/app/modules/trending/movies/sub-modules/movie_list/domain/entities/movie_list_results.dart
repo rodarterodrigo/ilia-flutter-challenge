@@ -1,4 +1,4 @@
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
 
 class MovieListResults {
   final List<Movie> movies;

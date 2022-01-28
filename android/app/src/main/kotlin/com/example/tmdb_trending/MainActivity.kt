@@ -1,4 +1,4 @@
-package com.example.imdb_trending
+package com.example.tmdb_trending
 
 import io.flutter.embedding.android.FlutterActivity
 

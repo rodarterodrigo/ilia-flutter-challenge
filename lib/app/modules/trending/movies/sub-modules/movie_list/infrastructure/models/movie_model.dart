@@ -1,4 +1,4 @@
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
 
 class MovieModel extends Movie {
   const MovieModel({
@@ -49,6 +49,6 @@ class MovieModel extends Movie {
       backdropPath: json['backdrop_path'] ?? '',
       isAdult: json['adult'] ?? false,
       overview: json['overview'] ?? '',
-      popularity: json['popularity'] ?? '',
+      popularity: json['popularity'] ?? -1,
       mediaType: json['media_type'] ?? '');
 }

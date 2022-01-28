@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:imdb_trending/app/core/packages/http_response.dart';
+import 'package:tmdb_trending/app/core/packages/http_response.dart';
 
 abstract class RequestClient {
   Future<HttpResponse> get(String url);

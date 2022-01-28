@@ -1,4 +1,4 @@
-import 'package:imdb_trending/app/core/shared/domain/failures/failures.dart';
+import 'package:tmdb_trending/app/core/shared/domain/failures/failures.dart';
 
 class GeneralFailure implements Failures {
   @override

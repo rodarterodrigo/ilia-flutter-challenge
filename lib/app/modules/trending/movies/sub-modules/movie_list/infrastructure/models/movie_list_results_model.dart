@@ -1,6 +1,6 @@
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list_results.dart';
-import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/models/movie_model.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list_results.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/models/movie_model.dart';
 
 class MovieListResultsModel extends MovieListResults {
   const MovieListResultsModel({

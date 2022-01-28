@@ -1,11 +1,11 @@
 {
-    "name": "imdb_trending",
-    "short_name": "imdb_trending",
+    "name": "tmdb_trending",
+    "short_name": "tmdb_trending",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "This is an infinity scroll view example application using the imdb api to show the trending movies of the week.",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:imdb_trending/app/core/routes/routes.dart';
-import 'package:imdb_trending/app/modules/home/presentation/widgets/cards/home_card.dart';
+import 'package:tmdb_trending/app/core/routes/routes.dart';
+import 'package:tmdb_trending/app/modules/home/presentation/widgets/cards/home_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('IMDB Trending Movies'),
+          title: const Text('TMDB Trending Movies'),
           centerTitle: true,
         ),
         body: Center(
