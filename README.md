@@ -3,6 +3,8 @@ This is an infinity scroll view  example application using the tmdb api to show 
 
 # dependencies
 
+youtube_player_flutter: ^8.0.0 https://pub.dev/packages/youtube_player_flutter
+rxdart: ^0.27.3 https://pub.dev/packages/rxdart
 cached_network_image 3.2.0 https://pub.dev/packages/cached_network_image <br>
 unicons 2.0.2 https://pub.dev/packages/unicons <br>
 flutter_svg 1.0.3 https://pub.dev/packages/flutter_svg <br>
@@ -12,7 +14,7 @@ flutter_bloc 8.0.1 https://pub.dev/packages/flutter_bloc <br>
 dio 4.0.4 https://pub.dev/packages/dio <br>
 flutter_modular 4.4.0 https://pub.dev/packages/flutter_modular <br>
 
-# dev deependencies
+# dev dependencies
 
 mocktail 0.2.0 https://pub.dev/packages/mocktail
 
