@@ -44,6 +44,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvents, GeneralStates> implements 
   void dispose() => close();
 
   void _mapSearchMovieToState(SearchMovieEvent event, Emitter<GeneralStates> emitter) async{
+    movies.clear();
     emitter(const LoadingState());
     final result = await usecase(event.parameter);
     emitter(result.fold((l) {
@@ -61,11 +62,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvents, GeneralStates> implements 
               l as SearchMovieFailure);
       }
     }, (r) {
-      if(event.parameter.searchValue.isEmpty) {
-        movies.clear();
-      } else {
-        movies = r.results.movies;
-      }
+      movies = r.results.movies;
       return SearchMovieSuccessState(r);
     }));
   }
