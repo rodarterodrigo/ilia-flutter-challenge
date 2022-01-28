@@ -1,4 +1,4 @@
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
+import 'package:tmdb_trending/app/core/shared/domain/entities/movie.dart';
 
 class MovieModel extends Movie {
   const MovieModel({

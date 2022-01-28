@@ -1,4 +1,4 @@
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list_results.dart';
+import 'package:tmdb_trending/app/core/shared/domain/entities/movie_list_results.dart';
 
 class MovieList {
   final MovieListResults results;

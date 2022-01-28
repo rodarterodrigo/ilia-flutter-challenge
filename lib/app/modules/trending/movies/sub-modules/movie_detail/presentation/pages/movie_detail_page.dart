@@ -6,7 +6,7 @@ import 'package:tmdb_trending/app/core/config/config.dart';
 import 'package:tmdb_trending/app/core/helpers/date_time_helper.dart';
 import 'package:tmdb_trending/app/core/routes/routes.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/widgets/buttons/medium_button.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
+import 'package:tmdb_trending/app/core/shared/domain/entities/movie.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/events/get_movie_trailer_event.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/get_movie_trailer_bloc.dart';
 import 'package:unicons/unicons.dart';

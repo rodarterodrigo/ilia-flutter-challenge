@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:tmdb_trending/app/core/shared/domain/entities/movie_list.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/failures.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/time_window_empty_failure.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/repositories/get_trending_movies_repository.dart';

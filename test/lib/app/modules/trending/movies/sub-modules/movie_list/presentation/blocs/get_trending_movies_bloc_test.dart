@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:tmdb_trending/app/core/shared/domain/entities/movie_list.dart';
+import 'package:tmdb_trending/app/core/shared/domain/entities/movie_list_results.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/general_failure.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/not_found_failure.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/unauthorized_failure.dart';
@@ -8,8 +10,6 @@ import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/general_
 import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/loading_state.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/not_found_failure_state.dart';
 import 'package:tmdb_trending/app/core/shared/presentation/blocs/states/unauthorized_failure_state.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list_results.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/time_window_empty_failure.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/trending_movies_list_failure.dart';

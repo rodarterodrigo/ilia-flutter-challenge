@@ -7,35 +7,33 @@ import 'package:tmdb_trending/app/core/shared/domain/failures/not_found_failure.
 import 'package:tmdb_trending/app/core/shared/domain/failures/unauthorized_failure.dart';
 import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/not_found_datasource_exception.dart';
 import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/trending_movies_list_failure.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/datasources/get_trending_movies_datasource.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
 import 'package:tmdb_trending/app/core/shared/infrastructure/models/movie_list_model.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/repositories/get_trending_movies_repository_implementation.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/domain/entities/search_movie_parameter.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/domain/failures/search_movie_failure.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/datasources/search_movie_datasource.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/exceptions/search_movie_datasource_exception.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/repositories/search_movie_repository_implementation.dart';
 
-class GetTrendingMoviesDatasourceMock extends Mock
-    implements GetTrendingMoviesDatasource {}
+class SearchMovieDatasourceMock extends Mock
+    implements SearchMovieDatasource {}
 
 class MovieListPageModelFake extends Fake implements MovieListModel {}
 
-class TrendingMoviesRequestParameterFake extends Fake
-    implements TrendingMoviesRequestParameter {}
+class SearchMovieParameterFake extends Fake
+    implements SearchMovieParameter {}
 
-final datasource = GetTrendingMoviesDatasourceMock();
-final repository = GetTrendingMoviesRepositoryImplementation(datasource);
+final datasource = SearchMovieDatasourceMock();
+final repository = SearchMovieRepositoryImplementation(datasource);
 
-const TrendingMoviesRequestParameter filledParameter =
-    TrendingMoviesRequestParameter(
+const SearchMovieParameter filledParameter = SearchMovieParameter(
   page: 1,
   language: 'pt-BR',
-  locationLanguage: 'pt',
-  timeWindow: 'timeWindow',
+  searchValue: 'searchValue',
 );
 
 void main() {
   setUpAll(() {
-    registerFallbackValue(TrendingMoviesRequestParameterFake());
+    registerFallbackValue(SearchMovieParameterFake());
   });
 
   test('Must return an MovieList entity', () async {
@@ -45,12 +43,12 @@ void main() {
     expect(result.fold(id, id), isA<MovieList>());
   });
 
-  test('must return an GetTrendingMoviesListFailure', () async {
+  test('must return an SearchMovieFailure', () async {
     when(() => datasource(any())).thenThrow(
-        const GetTrendingMoviesListDatasourceException(
-            'GetTrendingMoviesListDatasourceError'));
+        const SearchMovieDatasourceException(
+            'SearchMovieDatasourceException'));
     final result = await repository(filledParameter);
-    expect(result.fold(id, id), isA<TrendingMoviesListFailure>());
+    expect(result.fold(id, id), isA<SearchMovieFailure>());
   });
 
   test('must return an UnauthorizedFailure', () async {

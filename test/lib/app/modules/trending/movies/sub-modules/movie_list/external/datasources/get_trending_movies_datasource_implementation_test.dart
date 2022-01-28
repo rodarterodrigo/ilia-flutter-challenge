@@ -7,7 +7,7 @@ import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/unauthor
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/external/datasources/get_trending_movies_datasource_implementation.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/models/movie_list_model.dart';
+import 'package:tmdb_trending/app/core/shared/infrastructure/models/movie_list_model.dart';
 
 import '../mocks/get_trending_movies_datasource_not_found_response.dart';
 import '../mocks/get_trending_movies_datasource_success_response.dart';
