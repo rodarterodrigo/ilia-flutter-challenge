@@ -15,14 +15,12 @@ import '../../../movie_list/external/mocks/get_trending_movies_datasource_unauth
 
 class DioClientMock extends Mock implements RequestClient {}
 
-class SearchMovieParameterFake extends Fake
-    implements SearchMovieParameter {}
+class SearchMovieParameterFake extends Fake implements SearchMovieParameter {}
 
 final requestClient = DioClientMock();
 final datasource = SearchMovieDatasourceImplementation(requestClient);
 
-const SearchMovieParameter filledParameter =
-SearchMovieParameter(
+const SearchMovieParameter filledParameter = SearchMovieParameter(
   page: 1,
   language: 'pt-BR',
   locationLanguage: 'pt',
@@ -36,50 +34,49 @@ void main() {
 
   test('Must complete the request', () {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 200));
+        const HttpResponse(
+            data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 200));
     final result = datasource(filledParameter);
     expect(result, completes);
   });
 
   test('Must return an MovieListModel', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 200));
+        const HttpResponse(
+            data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 200));
     final result = await datasource(filledParameter);
     expect(result, isA<MovieListModel>());
   });
 
   test('Must throw an SearchMovieDatasourceException', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 500));
+        const HttpResponse(
+            data: getTrendingMoviesDatasourceSuccessResponse, statusCode: 500));
     final result = datasource(filledParameter);
     expect(result, throwsA(isA<SearchMovieDatasourceException>()));
   });
 
   test('Must throw an NotFoundDatasourceException', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getTrendingMoviesDatasourceNotFoundResponse,
-        statusCode: 404));
+        const HttpResponse(
+            data: getTrendingMoviesDatasourceNotFoundResponse,
+            statusCode: 404));
     final result = datasource(filledParameter);
     expect(result, throwsA(isA<NotFoundDatasourceException>()));
   });
 
   test('Must throw an UnauthorizedDatasourceException', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getTrendingMoviesDatasourceUnauthorizedResponse,
-        statusCode: 401));
+        const HttpResponse(
+            data: getTrendingMoviesDatasourceUnauthorizedResponse,
+            statusCode: 401));
     final result = datasource(filledParameter);
     expect(result, throwsA(isA<UnauthorizedDatasourceException>()));
   });
 
   test('Must throw an SearchMovieDatasourceException', () async {
     when(() => requestClient.get(any())).thenThrow(
-        const SearchMovieDatasourceException(
-            'SearchMovieDatasourceException'));
+        const SearchMovieDatasourceException('SearchMovieDatasourceException'));
     final result = datasource(filledParameter);
     expect(result, throwsA(isA<SearchMovieDatasourceException>()));
   });

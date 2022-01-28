@@ -22,7 +22,6 @@ final datasource = GetMovieTrailerResultsDatasourceMock();
 final repository = GetMovieTrailerResultsRepositoryImplementation(datasource);
 
 void main() {
-
   test('Must return an MovieTrailer entity', () async {
     when(() => datasource(any()))
         .thenAnswer((invocation) async => MovieTrailerModelFake());
@@ -32,8 +31,7 @@ void main() {
 
   test('must return an GetMovieTrailerResultsFailure', () async {
     when(() => datasource(any())).thenThrow(
-        const GetMovieTrailerDatasourceException(
-            'GetMovieTrailerException'));
+        const GetMovieTrailerDatasourceException('GetMovieTrailerException'));
     final result = await repository(1);
     expect(result.fold(id, id), isA<GetMovieTrailerResultsFailure>());
   });

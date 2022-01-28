@@ -218,85 +218,69 @@ void main() {
 
   test(
       'Should return all states in order and SearchTrendingMoviesListSuccessState as final state',
-          () async {
-        when(() => usecase(any()))
-            .thenAnswer((invocation) async => const Right(movieListPage));
-        bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              isA<LoadingState>(),
-              isA<SearchTrendingMoviesListSuccessState>()
-            ]));
-      });
+      () async {
+    when(() => usecase(any()))
+        .thenAnswer((invocation) async => const Right(movieListPage));
+    bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
+    expect(
+        bloc.stream,
+        emitsInOrder([
+          isA<LoadingState>(),
+          isA<SearchTrendingMoviesListSuccessState>()
+        ]));
+  });
 
   test(
       'Should return all states in order and GetTrendingMoviesListFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer((invocation) async =>
+      () async {
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(TrendingMoviesListFailure('GetTrendingMoviesListFailure')));
-        bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              isA<LoadingState>(),
-              isA<GetTrendingMoviesListFailureState>()
-            ]));
-      });
+    bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<GetTrendingMoviesListFailureState>()]));
+  });
 
   test(
       'Should return all states in order and TimeWindowEmptyFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer((invocation) async =>
+      () async {
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(TimeWindowEmptyFailure('TimeWindowEmptyFailure')));
-        bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              isA<LoadingState>(),
-              isA<TimeWindowEmptyFailureState>()
-            ]));
-      });
+    bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<TimeWindowEmptyFailureState>()]));
+  });
 
   test(
       'Should return all states in order and UnauthorizedFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer((invocation) async =>
+      () async {
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(UnauthorizedFailure('UnauthorizedFailure')));
-        bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              isA<LoadingState>(),
-              isA<UnauthorizedFailureState>()
-            ]));
-      });
+    bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<UnauthorizedFailureState>()]));
+  });
 
   test(
       'Should return all states in order and NotFoundFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer(
-                (invocation) async => const Left(NotFoundFailure('NotFoundFailure')));
-        bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              isA<LoadingState>(),
-              isA<NotFoundFailureState>()
-            ]));
-      });
+      () async {
+    when(() => usecase(any())).thenAnswer(
+        (invocation) async => const Left(NotFoundFailure('NotFoundFailure')));
+    bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<NotFoundFailureState>()]));
+  });
 
   test(
       'Should return all states in order and GeneralFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer(
-                (invocation) async => const Left(GeneralFailure('GeneralFailure')));
-        bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
-        expect(
-            bloc.stream,
-            emitsInOrder([
-              isA<LoadingState>(),
-              isA<GeneralFailureState>()
-            ]));
-      });
+      () async {
+    when(() => usecase(any())).thenAnswer(
+        (invocation) async => const Left(GeneralFailure('GeneralFailure')));
+    bloc.add(const SearchTrendingMoviesListEvent(filledParameter, 'search'));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<GeneralFailureState>()]));
+  });
 }

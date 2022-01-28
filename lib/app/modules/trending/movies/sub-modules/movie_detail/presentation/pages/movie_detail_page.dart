@@ -21,13 +21,15 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  final GetMovieTrailerBloc getMovieTrailerBloc = Modular.get<GetMovieTrailerBloc>();
+  final GetMovieTrailerBloc getMovieTrailerBloc =
+      Modular.get<GetMovieTrailerBloc>();
 
   @override
   void initState() {
     getMovieTrailerBloc.add(GetMovieTrailerEvent(widget.movie.id));
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +53,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         child: Hero(
                           tag: widget.movie.title,
                           child: CachedNetworkImage(
-                            imageUrl: '${ServerConfiguration.serverImages}${widget.movie.posterPath}',
+                            imageUrl:
+                                '${ServerConfiguration.serverImages}${widget.movie.posterPath}',
                           ),
                         ),
                       ),
@@ -68,12 +71,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             SizedBox(
                               width: 320,
                               child: Text(
-                                  widget.movie.title,
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                  ),
+                                widget.movie.title,
+                                maxLines: 2,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                             Column(
@@ -81,8 +84,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 Shimmer.fromColors(
                                     highlightColor: Colors.white,
                                     baseColor: Colors.amber,
-                                    child: const Icon(UniconsSolid.star, color: Colors.amber, size: 18)
-                                ),
+                                    child: const Icon(UniconsSolid.star,
+                                        color: Colors.amber, size: 18)),
                                 const SizedBox(height: 2),
                                 Text(
                                   widget.movie.voteAverage.toString(),
@@ -99,7 +102,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           children: [
                             const SizedBox(height: 16),
                             Text(
-                              DateTimeHelper.convertDateFromString(widget.movie.releaseDate),
+                              DateTimeHelper.convertDateFromString(
+                                  widget.movie.releaseDate),
                               maxLines: 2,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w500,
@@ -108,7 +112,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             ),
                             const SizedBox(height: 16),
                             MediumButton(
-                              onPressed: () => Modular.to.pushNamed(Routes.movieTrailer, arguments: getMovieTrailerBloc.trailers.first.key),
+                              onPressed: () => Modular.to.pushNamed(
+                                  Routes.movieTrailer,
+                                  arguments:
+                                      getMovieTrailerBloc.trailers.first.key),
                               text: 'Trailer',
                             )
                           ],

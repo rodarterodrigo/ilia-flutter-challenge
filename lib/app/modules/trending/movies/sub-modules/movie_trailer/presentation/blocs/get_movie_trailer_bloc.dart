@@ -17,10 +17,11 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trai
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/states/get_movie_trailer_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/states/get_movie_trailer_success_state.dart';
 
-class GetMovieTrailerBloc extends Bloc<GetMovieTrailerEvents, GeneralStates> implements Disposable{
+class GetMovieTrailerBloc extends Bloc<GetMovieTrailerEvents, GeneralStates>
+    implements Disposable {
   final GetMovieTrailerByMovieIdAbstraction usecase;
 
-  GetMovieTrailerBloc(this.usecase) : super(const InitialState()){
+  GetMovieTrailerBloc(this.usecase) : super(const InitialState()) {
     on<GetMovieTrailerEvent>(_mapGetMovieTrailerToState);
   }
 
@@ -29,26 +30,25 @@ class GetMovieTrailerBloc extends Bloc<GetMovieTrailerEvents, GeneralStates> imp
   @override
   void dispose() => close();
 
-  void _mapGetMovieTrailerToState(GetMovieTrailerEvent event, Emitter<GeneralStates> emitter) async{
+  void _mapGetMovieTrailerToState(
+      GetMovieTrailerEvent event, Emitter<GeneralStates> emitter) async {
     emitter(const LoadingState());
     final result = await usecase(event.movieId);
-    emitter(
-      result.fold((l){
-        switch(l.runtimeType){
-          case UnauthorizedFailure:
-            return UnauthorizedFailureState(l as UnauthorizedFailure);
-          case NotFoundFailure:
-            return NotFoundFailureState(l as NotFoundFailure);
-          case GeneralFailure:
-            return GeneralFailureState(l as GeneralFailure);
-          default:
-            return GetMovieTrailerFailureState(
-                l as GetMovieTrailerResultsFailure);
-        }
-      }, (r){
-        trailers = r.movieTrailerResults.results;
-        return GetMovieTrailerSuccessState(r);
-      })
-    );
+    emitter(result.fold((l) {
+      switch (l.runtimeType) {
+        case UnauthorizedFailure:
+          return UnauthorizedFailureState(l as UnauthorizedFailure);
+        case NotFoundFailure:
+          return NotFoundFailureState(l as NotFoundFailure);
+        case GeneralFailure:
+          return GeneralFailureState(l as GeneralFailure);
+        default:
+          return GetMovieTrailerFailureState(
+              l as GetMovieTrailerResultsFailure);
+      }
+    }, (r) {
+      trailers = r.movieTrailerResults.results;
+      return GetMovieTrailerSuccessState(r);
+    }));
   }
 }

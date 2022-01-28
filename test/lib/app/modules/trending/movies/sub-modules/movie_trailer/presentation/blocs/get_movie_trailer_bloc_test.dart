@@ -23,61 +23,61 @@ class GetMovieTrailerByMovieIdAbstractionMock extends Mock
 final usecase = GetMovieTrailerByMovieIdAbstractionMock();
 final bloc = GetMovieTrailerBloc(usecase);
 
-final MovieTrailer movieTrailer = MovieTrailer(id: 1, movieTrailerResults: MovieTrailerResults(results: []));
+final MovieTrailer movieTrailer =
+    MovieTrailer(id: 1, movieTrailerResults: MovieTrailerResults(results: []));
 
 void main() {
-
   test(
       'Should return all states in order and GetMovieTrailerSuccessState as final state',
-          () async {
-        when(() => usecase(any()))
-            .thenAnswer((invocation) async => Right(movieTrailer));
-        bloc.add(const GetMovieTrailerEvent(1));
-        expect(
-            bloc.stream,
-            emitsInOrder(
-                [isA<LoadingState>(), isA<GetMovieTrailerSuccessState>()]));
-      });
+      () async {
+    when(() => usecase(any()))
+        .thenAnswer((invocation) async => Right(movieTrailer));
+    bloc.add(const GetMovieTrailerEvent(1));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<GetMovieTrailerSuccessState>()]));
+  });
 
   test(
       'Should return all states in order and GetMovieTrailerFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer((invocation) async =>
-        const Left(GetMovieTrailerResultsFailure('GetMovieTrailerResultsFailure')));
-        bloc.add(const GetMovieTrailerEvent(1));
-        expect(
-            bloc.stream,
-            emitsInOrder(
-                [isA<LoadingState>(), isA<GetMovieTrailerFailureState>()]));
-      });
+      () async {
+    when(() => usecase(any())).thenAnswer((invocation) async => const Left(
+        GetMovieTrailerResultsFailure('GetMovieTrailerResultsFailure')));
+    bloc.add(const GetMovieTrailerEvent(1));
+    expect(
+        bloc.stream,
+        emitsInOrder(
+            [isA<LoadingState>(), isA<GetMovieTrailerFailureState>()]));
+  });
 
   test(
       'Should return all states in order and UnauthorizedFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer((invocation) async =>
+      () async {
+    when(() => usecase(any())).thenAnswer((invocation) async =>
         const Left(UnauthorizedFailure('UnauthorizedFailure')));
-        bloc.add(const GetMovieTrailerEvent(1));
-        expect(bloc.stream,
-            emitsInOrder([isA<LoadingState>(), isA<UnauthorizedFailureState>()]));
-      });
+    bloc.add(const GetMovieTrailerEvent(1));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<UnauthorizedFailureState>()]));
+  });
 
   test(
       'Should return all states in order and NotFoundFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer(
-                (invocation) async => const Left(NotFoundFailure('NotFoundFailure')));
-        bloc.add(const GetMovieTrailerEvent(1));
-        expect(bloc.stream,
-            emitsInOrder([isA<LoadingState>(), isA<NotFoundFailureState>()]));
-      });
+      () async {
+    when(() => usecase(any())).thenAnswer(
+        (invocation) async => const Left(NotFoundFailure('NotFoundFailure')));
+    bloc.add(const GetMovieTrailerEvent(1));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<NotFoundFailureState>()]));
+  });
 
   test(
       'Should return all states in order and GeneralFailureState as final state',
-          () async {
-        when(() => usecase(any())).thenAnswer(
-                (invocation) async => const Left(GeneralFailure('GeneralFailure')));
-        bloc.add(const GetMovieTrailerEvent(1));
-        expect(bloc.stream,
-            emitsInOrder([isA<LoadingState>(), isA<GeneralFailureState>()]));
-      });
+      () async {
+    when(() => usecase(any())).thenAnswer(
+        (invocation) async => const Left(GeneralFailure('GeneralFailure')));
+    bloc.add(const GetMovieTrailerEvent(1));
+    expect(bloc.stream,
+        emitsInOrder([isA<LoadingState>(), isA<GeneralFailureState>()]));
+  });
 }

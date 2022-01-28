@@ -11,23 +11,24 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trai
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/infrastructure/datasources/get_movie_trailer_results_datasource.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/infrastructure/exceptions/get_movie_trailer_datasource_exception.dart';
 
-class GetMovieTrailerResultsRepositoryImplementation implements GetMovieTrailerResultsRepository{
+class GetMovieTrailerResultsRepositoryImplementation
+    implements GetMovieTrailerResultsRepository {
   final GetMovieTrailerResultsDatasource datasource;
 
   GetMovieTrailerResultsRepositoryImplementation(this.datasource);
 
   @override
-  Future<Either<Failures, MovieTrailer>> call(int movieId) async{
+  Future<Either<Failures, MovieTrailer>> call(int movieId) async {
     try {
       return Right(await datasource(movieId));
     } on GetMovieTrailerDatasourceException catch (e) {
-    return Left(GetMovieTrailerResultsFailure(e.message));
+      return Left(GetMovieTrailerResultsFailure(e.message));
     } on UnauthorizedDatasourceException catch (e) {
-    return Left(UnauthorizedFailure(e.message));
+      return Left(UnauthorizedFailure(e.message));
     } on NotFoundDatasourceException catch (e) {
-    return Left(NotFoundFailure(e.message));
+      return Left(NotFoundFailure(e.message));
     } on Exception catch (e) {
-    return Left(GeneralFailure(e.toString()));
+      return Left(GeneralFailure(e.toString()));
     }
   }
 }

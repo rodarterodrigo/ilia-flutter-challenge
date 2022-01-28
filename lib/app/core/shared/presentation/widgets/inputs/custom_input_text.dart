@@ -100,23 +100,25 @@ class CustomInputText extends StatelessWidget {
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         suffixIcon: sufixIcon != null
             ? GestureDetector(
-          onTap: sufixIconTap,
-          child: Icon(
-            sufixIcon,
-            color:
-            errorText != null ? Theme.of(context).errorColor : Colors.white,
-          ),
-        )
+                onTap: sufixIconTap,
+                child: Icon(
+                  sufixIcon,
+                  color: errorText != null
+                      ? Theme.of(context).errorColor
+                      : Colors.white,
+                ),
+              )
             : null,
         prefixIcon: prefixIcon != null
             ? GestureDetector(
-          onTap: prefixIconTap,
-          child: Icon(
-            prefixIcon,
-            color:
-            errorText != null ? Theme.of(context).errorColor : Colors.white,
-          ),
-        )
+                onTap: prefixIconTap,
+                child: Icon(
+                  prefixIcon,
+                  color: errorText != null
+                      ? Theme.of(context).errorColor
+                      : Colors.white,
+                ),
+              )
             : null,
         labelText: label,
         labelStyle: TextStyle(color: labelColor ?? Colors.white),
@@ -136,14 +138,15 @@ class CustomInputText extends StatelessWidget {
         ),
         filled: true,
         fillColor:
-        isEnabled! ? fillColor ?? Colors.white : const Color(0xFFF1F1F1),
+            isEnabled! ? fillColor ?? Colors.white : const Color(0xFFF1F1F1),
         contentPadding:
-        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             style: BorderStyle.solid,
             width: borderWidth != null ? borderWidth! : 1,
-            color: focusedBorderColor != null ? borderColor! : Colors.grey[300]!,
+            color:
+                focusedBorderColor != null ? borderColor! : Colors.grey[300]!,
           ),
           borderRadius: borderRadius != null
               ? BorderRadius.all(Radius.circular(borderRadius!))

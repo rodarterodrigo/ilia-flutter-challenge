@@ -28,8 +28,7 @@ class GetMovieTrailerResultsDatasourceImplementation
       case 404:
         throw NotFoundDatasourceException(response.data['status_message']);
       default:
-        throw const GetMovieTrailerDatasourceException(
-            'Houve um erro interno');
+        throw const GetMovieTrailerDatasourceException('Houve um erro interno');
     }
   }
 }

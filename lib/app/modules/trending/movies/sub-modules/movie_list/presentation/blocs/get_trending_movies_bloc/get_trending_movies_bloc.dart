@@ -37,8 +37,11 @@ class GetTrendingMoviesBloc
   GetTrendingMoviesBloc(this.usecase) : super(const LoadingState()) {
     on<GetTrendingMoviesListEvent>(_mapGetTrendingMoviesListToState);
     on<FetchTrendingMoviesListEvent>(_mapFetchTrendingMoviesListToState);
-    on<SearchTrendingMoviesListEvent>(_mapSearchTrendingMoviesListToState,
-      transformer: (event, mapper) => event.debounceTime(const Duration(milliseconds: 400)).switchMap(mapper),
+    on<SearchTrendingMoviesListEvent>(
+      _mapSearchTrendingMoviesListToState,
+      transformer: (event, mapper) => event
+          .debounceTime(const Duration(milliseconds: 400))
+          .switchMap(mapper),
     );
   }
 
@@ -98,8 +101,8 @@ class GetTrendingMoviesBloc
     }));
   }
 
-  void _mapSearchTrendingMoviesListToState(
-      SearchTrendingMoviesListEvent event, Emitter<GeneralStates> emitter) async {
+  void _mapSearchTrendingMoviesListToState(SearchTrendingMoviesListEvent event,
+      Emitter<GeneralStates> emitter) async {
     emitter(const LoadingState());
     final result = await usecase(event.parameter);
     emitter(result.fold((l) {
@@ -117,12 +120,15 @@ class GetTrendingMoviesBloc
               l as TrendingMoviesListFailure);
       }
     }, (r) {
-      if(r.results.movies.isNotEmpty) {
+      if (r.results.movies.isNotEmpty) {
         movies.clear();
         movies.addAll(r.results.movies);
-        if(event.searchValue.isNotEmpty) {
-          movies = movies.where((element) =>
-              element.title.toUpperCase().contains(event.searchValue.toUpperCase())).toList();
+        if (event.searchValue.isNotEmpty) {
+          movies = movies
+              .where((element) => element.title
+                  .toUpperCase()
+                  .contains(event.searchValue.toUpperCase()))
+              .toList();
         }
       }
       return const SearchTrendingMoviesListSuccessState();

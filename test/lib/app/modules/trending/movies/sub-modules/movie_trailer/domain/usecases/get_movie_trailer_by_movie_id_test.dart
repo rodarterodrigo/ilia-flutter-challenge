@@ -18,7 +18,6 @@ final repository = GetMovieTrailerResultsRepositoryMock();
 final usecase = GetMovieTrailerByMovieId(repository);
 
 void main() {
-
   test('Must return an MovieTrailer entity', () async {
     when(() => repository(any()))
         .thenAnswer((realInvocation) async => Right(MovieTrailerFake()));
@@ -28,28 +27,29 @@ void main() {
 
   test('Must return an GetMovieTrailerResultsFailure', () async {
     when(() => repository(any())).thenAnswer((realInvocation) async =>
-    const Left(GetMovieTrailerResultsFailure('GetMovieTrailerResultsFailure')));
+        const Left(
+            GetMovieTrailerResultsFailure('GetMovieTrailerResultsFailure')));
     final result = await usecase(1);
     expect(result.fold(id, id), isA<GetMovieTrailerResultsFailure>());
   });
 
   test('Must return an UnauthorizedFailure', () async {
     when(() => repository(any())).thenAnswer((realInvocation) async =>
-    const Left(UnauthorizedFailure('UnauthorizedFailure')));
+        const Left(UnauthorizedFailure('UnauthorizedFailure')));
     final result = await usecase(1);
     expect(result.fold(id, id), isA<UnauthorizedFailure>());
   });
 
   test('Must return an NotFoundFailure', () async {
     when(() => repository(any())).thenAnswer((realInvocation) async =>
-    const Left(NotFoundFailure('NotFoundFailure')));
+        const Left(NotFoundFailure('NotFoundFailure')));
     final result = await usecase(1);
     expect(result.fold(id, id), isA<NotFoundFailure>());
   });
 
   test('Must return an GeneralFailure', () async {
     when(() => repository(any())).thenAnswer(
-            (realInvocation) async => const Left(GeneralFailure('GeneralFailure')));
+        (realInvocation) async => const Left(GeneralFailure('GeneralFailure')));
     final result = await usecase(1);
     expect(result.fold(id, id), isA<GeneralFailure>());
   });

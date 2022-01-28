@@ -7,8 +7,7 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trai
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/get_movie_trailer_bloc.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/pages/movie_trailer_page.dart';
 
-class MovieDetailModule extends Module{
-
+class MovieDetailModule extends Module {
   @override
   final List<Bind> binds = [
     Bind((i) => GetMovieTrailerResultsDatasourceImplementation(i())),
@@ -21,14 +20,14 @@ class MovieDetailModule extends Module{
   final List<ModularRoute> routes = [
     ChildRoute('/',
         child: (context, arguments) => MovieDetailPage(
-          movie: arguments.data,
-        ),
+              movie: arguments.data,
+            ),
         transition: TransitionType.rightToLeft,
         duration: const Duration(milliseconds: 400)),
     ChildRoute(Routes.movieTrailerModule,
         child: (context, arguments) => MovieTrailerPage(
-          videoId: arguments.data,
-        ),
+              videoId: arguments.data,
+            ),
         transition: TransitionType.rightToLeft,
         duration: const Duration(milliseconds: 400)),
   ];

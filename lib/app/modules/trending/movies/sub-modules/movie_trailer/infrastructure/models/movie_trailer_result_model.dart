@@ -1,6 +1,6 @@
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/domain/entities/movie_trailer_result.dart';
 
-class MovieTrailerResultModel extends MovieTrailerResult{
+class MovieTrailerResultModel extends MovieTrailerResult {
   MovieTrailerResultModel({
     required String iso6391,
     required String iso31161,
@@ -12,18 +12,18 @@ class MovieTrailerResultModel extends MovieTrailerResult{
     required bool isOfficial,
     required String publishDate,
     required String id,
-  }):super(
-    iso6391: iso6391,
-    iso31161: iso31161,
-    name: name,
-    key: key,
-    site: site,
-    size: size,
-    type: type,
-    isOfficial: isOfficial,
-    publishDate: publishDate,
-    id: id,
-  );
+  }) : super(
+          iso6391: iso6391,
+          iso31161: iso31161,
+          name: name,
+          key: key,
+          site: site,
+          size: size,
+          type: type,
+          isOfficial: isOfficial,
+          publishDate: publishDate,
+          id: id,
+        );
 
   factory MovieTrailerResultModel.fromJson(Map<String, dynamic> json) =>
       MovieTrailerResultModel(

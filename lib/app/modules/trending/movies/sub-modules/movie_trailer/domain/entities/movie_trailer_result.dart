@@ -1,4 +1,4 @@
-class MovieTrailerResult{
+class MovieTrailerResult {
   final String iso6391;
   final String iso31161;
   final String name;

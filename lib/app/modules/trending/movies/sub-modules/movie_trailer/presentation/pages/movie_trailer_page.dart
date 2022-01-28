@@ -39,7 +39,7 @@ class _MovieTrailerPageState extends State<MovieTrailerPage> {
               handleColor: Colors.white,
             ),
           ),
-          builder: (context, player){
+          builder: (context, player) {
             return Column(
               children: [
                 player,

@@ -12,13 +12,14 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_sear
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/datasources/search_movie_datasource.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/exceptions/search_movie_datasource_exception.dart';
 
-class SearchMovieRepositoryImplementation implements SearchMovieRepository{
+class SearchMovieRepositoryImplementation implements SearchMovieRepository {
   final SearchMovieDatasource datasource;
 
   SearchMovieRepositoryImplementation(this.datasource);
 
   @override
-  Future<Either<Failures, MovieList>> call(SearchMovieParameter parameter) async{
+  Future<Either<Failures, MovieList>> call(
+      SearchMovieParameter parameter) async {
     try {
       return Right(await datasource(parameter));
     } on SearchMovieDatasourceException catch (e) {

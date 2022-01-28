@@ -72,14 +72,12 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: CustomInputText(
                     fillColor: Theme.of(context).primaryColor,
-                    onChanged: (value) => getTrendingMoviesBloc.add(SearchTrendingMoviesListEvent(
+                    onChanged: (value) =>
+                        getTrendingMoviesBloc.add(SearchTrendingMoviesListEvent(
                       TrendingMoviesRequestParameter(
                         page: getTrendingMoviesBloc.page,
-                        language: Platform.localeName
-                            .replaceAll('_', '-'),
-                        locationLanguage: Platform.localeName
-                            .split('_')
-                            .first,
+                        language: Platform.localeName.replaceAll('_', '-'),
+                        locationLanguage: Platform.localeName.split('_').first,
                         timeWindow: widget.timeWindow,
                       ),
                       searchController.text,
@@ -196,9 +194,12 @@ class _TrendingMoviesListPageState extends State<TrendingMoviesListPage> {
                                                 return const ListCardShimmer();
                                               }
                                               return MovieListCard(
-                                                onTap: () => Modular.to.pushNamed(Routes.movieDetail,
-                                                    arguments: getTrendingMoviesBloc
-                                                        .movies[index]),
+                                                onTap: () => Modular.to
+                                                    .pushNamed(
+                                                        Routes.movieDetail,
+                                                        arguments:
+                                                            getTrendingMoviesBloc
+                                                                .movies[index]),
                                                 imagePath:
                                                     '${ServerConfiguration.serverImages}${getTrendingMoviesBloc.movies[index].posterPath}',
                                                 title: getTrendingMoviesBloc

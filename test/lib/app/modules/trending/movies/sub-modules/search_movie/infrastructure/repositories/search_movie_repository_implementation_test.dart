@@ -14,13 +14,11 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_sear
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/exceptions/search_movie_datasource_exception.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/repositories/search_movie_repository_implementation.dart';
 
-class SearchMovieDatasourceMock extends Mock
-    implements SearchMovieDatasource {}
+class SearchMovieDatasourceMock extends Mock implements SearchMovieDatasource {}
 
 class MovieListPageModelFake extends Fake implements MovieListModel {}
 
-class SearchMovieParameterFake extends Fake
-    implements SearchMovieParameter {}
+class SearchMovieParameterFake extends Fake implements SearchMovieParameter {}
 
 final datasource = SearchMovieDatasourceMock();
 final repository = SearchMovieRepositoryImplementation(datasource);
@@ -29,6 +27,7 @@ const SearchMovieParameter filledParameter = SearchMovieParameter(
   page: 1,
   language: 'pt-BR',
   searchValue: 'searchValue',
+  locationLanguage: '',
 );
 
 void main() {
@@ -45,8 +44,7 @@ void main() {
 
   test('must return an SearchMovieFailure', () async {
     when(() => datasource(any())).thenThrow(
-        const SearchMovieDatasourceException(
-            'SearchMovieDatasourceException'));
+        const SearchMovieDatasourceException('SearchMovieDatasourceException'));
     final result = await repository(filledParameter);
     expect(result.fold(id, id), isA<SearchMovieFailure>());
   });

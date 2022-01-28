@@ -1,3 +1,3 @@
-abstract class GetMovieTrailerEvents{
+abstract class GetMovieTrailerEvents {
   const GetMovieTrailerEvents();
 }

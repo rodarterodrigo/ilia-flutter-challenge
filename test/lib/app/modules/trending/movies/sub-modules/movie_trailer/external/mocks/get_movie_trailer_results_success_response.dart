@@ -4,7 +4,8 @@ const getMovieTrailerResultsSuccessResponse = {
     {
       "iso_639_1": "en",
       "iso_3166_1": "US",
-      "name": "The King's Daughter - Official Trailer - Exclusively in Theaters Jan 21st",
+      "name":
+          "The King's Daughter - Official Trailer - Exclusively in Theaters Jan 21st",
       "key": "NjGSWdmVVHM",
       "site": "YouTube",
       "size": 1080,

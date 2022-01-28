@@ -24,7 +24,6 @@ class TrendingMoviesListModule extends Module {
             ),
         transition: TransitionType.rightToLeft,
         duration: const Duration(milliseconds: 400)),
-
     ModuleRoute(Routes.movieDetailModule, module: MovieDetailModule()),
   ];
 }

@@ -15,48 +15,46 @@ import '../mocks/get_movie_trailer_results_unauthorized_response.dart';
 class DioClientMock extends Mock implements RequestClient {}
 
 final requestClient = DioClientMock();
-final datasource = GetMovieTrailerResultsDatasourceImplementation(requestClient);
+final datasource =
+    GetMovieTrailerResultsDatasourceImplementation(requestClient);
 
 void main() {
-
   test('Must complete the request', () {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getMovieTrailerResultsSuccessResponse, statusCode: 200));
+        const HttpResponse(
+            data: getMovieTrailerResultsSuccessResponse, statusCode: 200));
     final result = datasource(1);
     expect(result, completes);
   });
 
   test('Must return an MovieTrailerModel', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getMovieTrailerResultsSuccessResponse, statusCode: 200));
+        const HttpResponse(
+            data: getMovieTrailerResultsSuccessResponse, statusCode: 200));
     final result = await datasource(1);
     expect(result, isA<MovieTrailerModel>());
   });
 
   test('Must throw an GetMovieTrailerDatasourceException', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getMovieTrailerResultsSuccessResponse, statusCode: 500));
+        const HttpResponse(
+            data: getMovieTrailerResultsSuccessResponse, statusCode: 500));
     final result = datasource(1);
     expect(result, throwsA(isA<GetMovieTrailerDatasourceException>()));
   });
 
   test('Must throw an NotFoundDatasourceException', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getMovieTrailerResultsNotFoundResponse,
-        statusCode: 404));
+        const HttpResponse(
+            data: getMovieTrailerResultsNotFoundResponse, statusCode: 404));
     final result = datasource(1);
     expect(result, throwsA(isA<NotFoundDatasourceException>()));
   });
 
   test('Must throw an UnauthorizedDatasourceException', () async {
     when(() => requestClient.get(any())).thenAnswer((realInvocation) async =>
-    const HttpResponse(
-        data: getMovieTrailerResultsUnauthorizedResponse,
-        statusCode: 401));
+        const HttpResponse(
+            data: getMovieTrailerResultsUnauthorizedResponse, statusCode: 401));
     final result = datasource(1);
     expect(result, throwsA(isA<UnauthorizedDatasourceException>()));
   });

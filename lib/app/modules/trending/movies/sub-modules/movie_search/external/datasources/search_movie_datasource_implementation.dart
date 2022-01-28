@@ -3,14 +3,12 @@ import 'package:tmdb_trending/app/core/packages/http_client.dart';
 import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/not_found_datasource_exception.dart';
 import 'package:tmdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
 import 'package:tmdb_trending/app/core/shared/infrastructure/models/movie_list_model.dart';
-import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/domain/entities/search_movie_parameter.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/external/settings/search_movie_settings.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/datasources/search_movie_datasource.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_search/infrastructure/exceptions/search_movie_datasource_exception.dart';
 
-class SearchMovieDatasourceImplementation
-    implements SearchMovieDatasource {
+class SearchMovieDatasourceImplementation implements SearchMovieDatasource {
   final RequestClient requestClient;
 
   const SearchMovieDatasourceImplementation(this.requestClient);
@@ -33,8 +31,7 @@ class SearchMovieDatasourceImplementation
       case 404:
         throw NotFoundDatasourceException(response.data['status_message']);
       default:
-        throw const SearchMovieDatasourceException(
-            'Houve um erro interno');
+        throw const SearchMovieDatasourceException('Houve um erro interno');
     }
   }
 }

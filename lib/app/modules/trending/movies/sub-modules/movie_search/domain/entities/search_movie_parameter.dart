@@ -6,7 +6,7 @@ class SearchMovieParameter {
 
   const SearchMovieParameter(
       {required this.language,
-        required this.locationLanguage,
-        required this.searchValue,
-        required this.page});
+      required this.locationLanguage,
+      required this.searchValue,
+      required this.page});
 }

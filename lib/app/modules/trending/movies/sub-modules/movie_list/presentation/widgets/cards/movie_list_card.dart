@@ -54,11 +54,12 @@ class MovieListCard extends StatelessWidget {
                       SizedBox(
                         width: 190,
                         child: Text(
-                            title, maxLines: 2,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
+                          title,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
                         ),
                       ),
                       Column(
@@ -66,8 +67,8 @@ class MovieListCard extends StatelessWidget {
                           Shimmer.fromColors(
                               highlightColor: Colors.white,
                               baseColor: Colors.amber,
-                              child: const Icon(UniconsSolid.star, color: Colors.amber, size: 16)
-                          ),
+                              child: const Icon(UniconsSolid.star,
+                                  color: Colors.amber, size: 16)),
                           const SizedBox(height: 2),
                           Text(
                             voteAverage.toString(),
