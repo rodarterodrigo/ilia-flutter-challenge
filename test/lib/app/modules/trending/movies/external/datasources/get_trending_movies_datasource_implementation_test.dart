@@ -16,8 +16,6 @@ import '../mocks/get_trending_movies_datasource_unauthorized_response.dart';
 
 class DioClientMock extends Mock implements RequestClient {}
 
-class OptionsFake extends Fake implements Options {}
-
 class TrendingMoviesRequestParameterFake extends Fake
     implements TrendingMoviesRequestParameter {}
 
@@ -34,7 +32,6 @@ const TrendingMoviesRequestParameter filledParameter =
 
 void main() {
   setUp(() {
-    registerFallbackValue(OptionsFake());
     registerFallbackValue(TrendingMoviesRequestParameterFake());
   });
 
