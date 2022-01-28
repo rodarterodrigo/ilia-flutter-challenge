@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/general_failure.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/not_found_failure.dart';
@@ -14,12 +15,14 @@ import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/usecases/get_trending_movies_by_time_window.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/fetch_trending_movies_list_event.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/get_trending_movies_list_event.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/search_trending_movies_list_event.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/trending_movies_list_events.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_success_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_loading_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_failure_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_success_state.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/search_trending_movies_list_success_state.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/time_window_empty_failure_state.dart';
 
 class GetTrendingMoviesBloc
@@ -34,6 +37,9 @@ class GetTrendingMoviesBloc
   GetTrendingMoviesBloc(this.usecase) : super(const LoadingState()) {
     on<GetTrendingMoviesListEvent>(_mapGetTrendingMoviesListToState);
     on<FetchTrendingMoviesListEvent>(_mapFetchTrendingMoviesListToState);
+    on<SearchTrendingMoviesListEvent>(_mapSearchTrendingMoviesListToState,
+      transformer: (event, mapper) => event.debounceTime(const Duration(milliseconds: 400)).switchMap(mapper),
+    );
   }
 
   @override
@@ -89,6 +95,36 @@ class GetTrendingMoviesBloc
       }
       r.results.movies.map((e) => movies.add(e)).toList();
       return FetchTrendingMoviesListSuccessState(r);
+    }));
+  }
+
+  void _mapSearchTrendingMoviesListToState(
+      SearchTrendingMoviesListEvent event, Emitter<GeneralStates> emitter) async {
+    emitter(const LoadingState());
+    final result = await usecase(event.parameter);
+    emitter(result.fold((l) {
+      switch (l.runtimeType) {
+        case UnauthorizedFailure:
+          return UnauthorizedFailureState(l as UnauthorizedFailure);
+        case NotFoundFailure:
+          return NotFoundFailureState(l as NotFoundFailure);
+        case TimeWindowEmptyFailure:
+          return TimeWindowEmptyFailureState(l as TimeWindowEmptyFailure);
+        case GeneralFailure:
+          return GeneralFailureState(l as GeneralFailure);
+        default:
+          return GetTrendingMoviesListFailureState(
+              l as TrendingMoviesListFailure);
+      }
+    }, (r) {
+      if(r.results.movies.isNotEmpty) {
+        movies.addAll(r.results.movies);
+        if(event.searchValue.isNotEmpty) {
+          movies = movies.where((element) =>
+              element.title.toUpperCase().contains(event.searchValue.toUpperCase())).toList();
+        }
+      }
+      return const SearchTrendingMoviesListSuccessState();
     }));
   }
 }
