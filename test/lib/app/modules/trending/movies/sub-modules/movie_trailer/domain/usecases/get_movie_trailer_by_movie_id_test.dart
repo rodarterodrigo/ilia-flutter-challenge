@@ -19,7 +19,7 @@ final usecase = GetMovieTrailerByMovieId(repository);
 
 void main() {
 
-  test('Must return an MovieList entity', () async {
+  test('Must return an MovieTrailer entity', () async {
     when(() => repository(any()))
         .thenAnswer((realInvocation) async => Right(MovieTrailerFake()));
     final result = await usecase(1);
