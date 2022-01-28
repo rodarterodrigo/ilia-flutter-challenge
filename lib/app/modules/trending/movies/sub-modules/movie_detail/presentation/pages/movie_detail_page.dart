@@ -56,7 +56,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       SizedBox(
                         width: 440,
                         child: Hero(
-                          tag: '${widget.movie.title}${widget.movie.posterPath}',
+                          tag: '${widget.movie.title}${ServerConfiguration.serverImages}${widget.movie.posterPath}',
                           child: CachedNetworkImage(
                             imageUrl:
                                 '${ServerConfiguration.serverImages}${widget.movie.posterPath}',
