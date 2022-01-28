@@ -28,8 +28,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.2.0
-  unicons: any
-  flutter_svg: any
+  unicons: ^2.0.2
+  flutter_svg: ^1.0.3
   dartz: ^0.10.1
   shimmer: ^2.0.0
   flutter_bloc: ^8.0.1
