@@ -36,7 +36,7 @@ class SearchMoviePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Buscar filmes', maxLines: 2),
+        title: const Text('Buscar filmes', maxLines: 2),
       ),
       body: SafeArea(
           child: Center(

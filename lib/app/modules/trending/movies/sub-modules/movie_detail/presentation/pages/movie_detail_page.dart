@@ -34,7 +34,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.movie.releaseDate);
     return Scaffold(
       body: SafeArea(
         child: SizedBox(

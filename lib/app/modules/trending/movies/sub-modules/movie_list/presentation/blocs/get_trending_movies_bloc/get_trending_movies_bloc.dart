@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/general_failure.dart';
 import 'package:tmdb_trending/app/core/shared/domain/failures/not_found_failure.dart';
