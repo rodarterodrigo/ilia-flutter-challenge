@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/general_failure.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/not_found_failure.dart';
 import 'package:imdb_trending/app/core/shared/domain/failures/unauthorized_failure.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/trending_movies_request_parameter.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/failures/time_window_empty_failure.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/repositories/get_trending_movies_repository.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/usecases/get_trending_movies_by_time_window.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/time_window_empty_failure.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/repositories/get_trending_movies_repository.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/usecases/get_trending_movies_by_time_window.dart';
 import 'package:mocktail/mocktail.dart';
 
 class GetTrendingMoviesRepositoryMock extends Mock

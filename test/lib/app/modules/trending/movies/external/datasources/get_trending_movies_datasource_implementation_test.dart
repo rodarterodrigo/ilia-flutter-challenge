@@ -4,10 +4,10 @@ import 'package:imdb_trending/app/core/packages/http_client.dart';
 import 'package:imdb_trending/app/core/packages/http_response.dart';
 import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/not_found_datasource_exception.dart';
 import 'package:imdb_trending/app/core/shared/infrastructure/exceptions/unauthorized_datasource_exception.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/trending_movies_request_parameter.dart';
-import 'package:imdb_trending/app/modules/trending/movies/external/datasources/get_trending_movies_datasource_implementation.dart';
-import 'package:imdb_trending/app/modules/trending/movies/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
-import 'package:imdb_trending/app/modules/trending/movies/infrastructure/models/movie_list_model.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/external/datasources/get_trending_movies_datasource_implementation.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/exceptions/get_trending_movies_list_datasource_exception.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/infrastructure/models/movie_list_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../mocks/get_trending_movies_datasource_not_found_response.dart';

@@ -7,21 +7,21 @@ import 'package:imdb_trending/app/core/shared/presentation/blocs/states/general_
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/loading_state.dart';
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/not_found_failure_state.dart';
 import 'package:imdb_trending/app/core/shared/presentation/blocs/states/unauthorized_failure_state.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/movie_list_results.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/entities/trending_movies_request_parameter.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/failures/time_window_empty_failure.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/failures/trending_movies_list_failure.dart';
-import 'package:imdb_trending/app/modules/trending/movies/domain/usecases/get_trending_movies_by_time_window.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/events/fetch_trending_movies_list_event.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/events/get_trending_movies_list_event.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/get_trending_movies_bloc.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_failure_state.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_success_state.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_loading_state.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_failure_state.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_success_state.dart';
-import 'package:imdb_trending/app/modules/trending/movies/presentation/blocs/get_trending_movies_bloc/states/time_window_empty_failure_state.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie_list_results.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/trending_movies_request_parameter.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/time_window_empty_failure.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/failures/trending_movies_list_failure.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/usecases/get_trending_movies_by_time_window.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/fetch_trending_movies_list_event.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/events/get_trending_movies_list_event.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/get_trending_movies_bloc.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_failure_state.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_list_success_state.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/fetch_trending_movies_loading_state.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_failure_state.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/get_trending_movies_list_success_state.dart';
+import 'package:imdb_trending/app/modules/trending/movies/sub-modules/movie_list/presentation/blocs/get_trending_movies_bloc/states/time_window_empty_failure_state.dart';
 import 'package:mocktail/mocktail.dart';
 
 class GetTrendingMoviesByTimeWindowAbstractionMock extends Mock
