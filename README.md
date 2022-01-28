@@ -12,7 +12,7 @@ flutter_bloc 8.0.1 https://pub.dev/packages/flutter_bloc <br>
 dio 4.0.4 https://pub.dev/packages/dio <br>
 flutter_modular 4.4.0 https://pub.dev/packages/flutter_modular <br>
 
-#dev deependencies
+# dev deependencies
 
 mocktail 0.2.0 https://pub.dev/packages/mocktail
 
