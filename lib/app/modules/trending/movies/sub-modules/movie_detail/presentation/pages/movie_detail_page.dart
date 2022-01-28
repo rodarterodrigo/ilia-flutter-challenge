@@ -1,16 +1,33 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tmdb_trending/app/core/config/config.dart';
 import 'package:tmdb_trending/app/core/helpers/date_time_helper.dart';
+import 'package:tmdb_trending/app/core/routes/routes.dart';
+import 'package:tmdb_trending/app/core/shared/presentation/widgets/buttons/medium_button.dart';
 import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_list/domain/entities/movie.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/events/get_movie_trailer_event.dart';
+import 'package:tmdb_trending/app/modules/trending/movies/sub-modules/movie_trailer/presentation/blocs/get_movie_trailer_bloc.dart';
 import 'package:unicons/unicons.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final Movie movie;
 
   const MovieDetailPage({Key? key, required this.movie}) : super(key: key);
 
+  @override
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
+  final GetMovieTrailerBloc getMovieTrailerBloc = Modular.get<GetMovieTrailerBloc>();
+
+  @override
+  void initState() {
+    getMovieTrailerBloc.add(GetMovieTrailerEvent(widget.movie.id));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +49,9 @@ class MovieDetailPage extends StatelessWidget {
                       child: SizedBox(
                         width: 440,
                         child: Hero(
-                          tag: movie.title,
+                          tag: widget.movie.title,
                           child: CachedNetworkImage(
-                            imageUrl: '${ServerConfiguration.serverImages}${movie.posterPath}',
+                            imageUrl: '${ServerConfiguration.serverImages}${widget.movie.posterPath}',
                           ),
                         ),
                       ),
@@ -51,7 +68,7 @@ class MovieDetailPage extends StatelessWidget {
                             SizedBox(
                               width: 320,
                               child: Text(
-                                  movie.title,
+                                  widget.movie.title,
                                   maxLines: 2,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w500,
@@ -68,7 +85,7 @@ class MovieDetailPage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  movie.voteAverage.toString(),
+                                  widget.movie.voteAverage.toString(),
                                   style: const TextStyle(
                                     color: Colors.amber,
                                   ),
@@ -82,26 +99,28 @@ class MovieDetailPage extends StatelessWidget {
                           children: [
                             const SizedBox(height: 16),
                             Text(
-                              DateTimeHelper.convertDateFromString(movie.releaseDate),
+                              DateTimeHelper.convertDateFromString(widget.movie.releaseDate),
                               maxLines: 2,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
                               ),
                             ),
+                            const SizedBox(height: 16),
+                            MediumButton(
+                              onPressed: () => Modular.to.pushNamed(Routes.movieTrailer, arguments: getMovieTrailerBloc.trailers.first.key),
+                              text: 'Trailer',
+                            )
                           ],
                         ),
                         const SizedBox(height: 16),
-                        SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: SizedBox(
-                            child: Text(
-                              movie.overview,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 99,
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
+                        SizedBox(
+                          child: Text(
+                            widget.movie.overview,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 99,
+                            style: const TextStyle(
+                              fontSize: 16,
                             ),
                           ),
                         ),
